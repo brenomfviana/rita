@@ -19,8 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".delivery.SettingsActivity" />
         <activity android:name=".delivery.CalibrationActivity" />
+        <activity
+            android:name=".delivery.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".delivery.CommandsActivity"></activity>
     </application>
 
 </manifest>

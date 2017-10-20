@@ -4,20 +4,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_main"
-            android:title="Principal" />
+            android:title="@string/menu_main" />
         <item
             android:id="@+id/nav_settings"
-            android:title="Configurações" />
+            android:title="@string/title_activity_settings" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:title="Compartilhar" />
+                android:title="@string/menu_share" />
             <item
                 android:id="@+id/nav_send"
-                android:title="Fale Conosco" />
+                android:title="@string/menu_contact_us" />
         </menu>
     </item>
 
