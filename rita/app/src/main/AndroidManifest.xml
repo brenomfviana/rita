@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".delivery.SettingsActivity" />
-        <activity android:name=".delivery.CalibrationActivity"></activity>
+        <activity android:name=".delivery.CalibrationActivity" />
     </application>
 
 </manifest>

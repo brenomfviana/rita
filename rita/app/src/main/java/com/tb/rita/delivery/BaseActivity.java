@@ -2,9 +2,6 @@ package com.tb.rita.delivery;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,32 +10,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tb.rita.R;
 
 /**
- * This class is responsible by the main activity.
- * @author Breno Viana
- * @version 2017/10/19
+ * Created by breno on 19/10/17.
  */
-public class MainActivity extends AppCompatActivity
+public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set content
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        View view = View.inflate(this, R.layout.activity_main, null);
+        //
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Add side bar
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         //
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_main) {
             // Handle the camera action
         } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_share) {
             //
         } else if (id == R.id.nav_send) {
