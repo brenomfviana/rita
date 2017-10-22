@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#79cbac</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="transparent">#80FFFFFF</color>
+
+    <color name="lineSepColor">#79cbac</color>
 </resources>

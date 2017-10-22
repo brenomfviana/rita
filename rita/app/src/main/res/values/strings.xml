@@ -2,6 +2,10 @@
     <!-- Main strings -->
 
     <string name="app_name">RITA</string>
+    <string name="wolcome">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
+        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
+    </string>
 
     <!-- Menu -->
 
