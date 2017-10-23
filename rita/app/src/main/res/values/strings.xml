@@ -2,7 +2,7 @@
     <!-- Main strings -->
 
     <string name="app_name">RITA</string>
-    <string name="wolcome">
+    <string name="welcome">
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
         Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
     </string>
@@ -19,6 +19,12 @@
 
     <string name="command_1">Ligue as luzes</string>
     <string name="command_2">Abra a porta</string>
+    <string name="apelidos">Apelidos</string>
+
+    <string name="expandableGroup1">Apelidos</string>
+    <string name="alias1">Apelido 1</string>
+    <string name="alias2">Apelido 2</string>
+    <string name="alias3">Apelido 3</string>
 
     <!-- Settings -->
 
