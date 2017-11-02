@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Home(Main) Activity -->
         <activity
             android:name=".delivery.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,18 +24,23 @@
         <activity
             android:name=".delivery.HelpActivity"
             android:label="Help"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".delivery.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".delivery.MainActivity" />
         </activity>
 
-        <activity android:name=".delivery.CalibrationActivity" />
+        <!-- Command List Activity -->
         <activity
-            android:name=".delivery.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".delivery.CommandsActivity"></activity>
+            android:name=".delivery.CommandsListActivity"
+            android:label="Command List"
+            android:parentActivityName=".delivery.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".delivery.MainActivity" />
+        </activity>
+
+        <!-- Commands Description Activity -->
 
     </application>
 

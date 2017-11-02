@@ -22,8 +22,6 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set content
         setContentView(R.layout.help_screen);
-
-        Intent intentFrom = getIntent();
     }
 
 

@@ -54,13 +54,4 @@
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginStart="4dp" />
 
-    <ExpandableListView
-        android:id="@+id/aliases"
-        android:layout_width="336dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cmdDescription" />
 </android.support.constraint.ConstraintLayout>
