@@ -1,4 +1,7 @@
 <resources>
+
+    <!-- Help Screen -->
+    <string name="back_button">Voltar</string>
     <!-- Main strings -->
 
     <string name="app_name">RITA</string>

@@ -15,10 +15,21 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Help Activity -->
+        <activity
+            android:name=".delivery.HelpActivity"
+            android:label="Help"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".delivery.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".delivery.MainActivity" />
+        </activity>
+
         <activity android:name=".delivery.CalibrationActivity" />
         <activity
             android:name=".delivery.SettingsActivity"

@@ -89,4 +89,9 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void OnHelpButtonPressed(View view) {
+        Intent toHelp = new Intent(this, HelpActivity.class);
+        startActivity(toHelp);
+    }
 }
