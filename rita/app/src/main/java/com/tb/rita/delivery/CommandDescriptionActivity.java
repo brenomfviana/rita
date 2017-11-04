@@ -38,11 +38,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
         alias_list = (ListView) findViewById(R.id.alias_list);
         populateAliasList();
-
-        Intent fromDescr = getIntent();
-        cmdName = fromDescr.getStringExtra(CommandsListActivity.CMD_SELECTED);
-        cmdNameView = (TextView) findViewById(R.id.cmd_name);
-        cmdNameView.setText(cmdName);
+        populateCmdName();
     }
 
     private void createAliases() {
@@ -58,6 +54,13 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
         alias_list.setAdapter(adapter);
+    }
+
+    private void populateCmdName() {
+        Intent fromDescr = getIntent();
+        cmdName = fromDescr.getStringExtra(CommandsListActivity.CMD_SELECTED);
+        cmdNameView = (TextView) findViewById(R.id.cmd_name);
+        cmdNameView.setText(cmdName);
     }
 
     public void OnBackButtonPressed(View view) {
