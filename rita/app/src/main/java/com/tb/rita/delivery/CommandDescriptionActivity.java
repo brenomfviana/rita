@@ -3,9 +3,17 @@ package com.tb.rita.delivery;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ListViewCompat;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.tb.rita.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thales on 04/11/17.
@@ -13,10 +21,41 @@ import com.tb.rita.R;
 
 public class CommandDescriptionActivity extends AppCompatActivity {
 
+    // Views
+    private ListView alias_list;
+    private TextView cmdNameView;
+
+    private List<String> aliases;
+    private String cmdName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_descr_screen);
+        // Initialize class properties
+        aliases = new ArrayList<>();
+        createAliases();
+
+        alias_list = (ListView) findViewById(R.id.alias_list);
+        populateAliasList();
+
+        cmdNameView = (TextView) findViewById(R.id.cmd_name);
+        cmdNameView.setText(cmdName);
+    }
+
+    private void createAliases() {
+        aliases.add("ALIAS 1");
+        aliases.add("ALIAS 2");
+        aliases.add("ALIAS 3");
+        aliases.add("ALIAS 4");
+        aliases.add("ALIAS 5");
+        aliases.add("ALIAS 6");
+    }
+
+    private void populateAliasList() {
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                R.layout.support_simple_spinner_dropdown_item, aliases);
+        alias_list.setAdapter(adapter);
     }
 
     public void OnBackButtonPressed(View view) {
