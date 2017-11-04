@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/rita_icon"
+        android:id="@+id/descr_rita_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="16dp"
@@ -22,94 +22,76 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rita_icon" />
 
+    <ImageView
+        android:id="@+id/descr_line_sep1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descr_rita_icon"
+        app:srcCompat="@drawable/linesep"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp" />
+
     <TextView
-        android:id="@+id/cmd_name"
+        android:id="@+id/descr_cmd_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="COMMAND NAME"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rita_icon"
-        app:layout_constraintHorizontal_bias="0.501" />
+        app:layout_constraintHorizontal_bias="0.501"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/descr_line_sep1" />
 
-    <Button
-        android:id="@+id/run"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/descr_line_sep2"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/button_run"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/back"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
-
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:onClick="OnBackButtonPressed"
-        android:text="@string/back_button"
-        app:layout_constraintBottom_toBottomOf="@+id/run"
-        app:layout_constraintLeft_toRightOf="@+id/run"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/run"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp" />
-
-    <ListView
-        android:id="@+id/alias_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/line_sep3"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/rita_icon"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rita_icon"
-        app:srcCompat="@drawable/linesep"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/line_sep2"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cmd_name"
+        app:layout_constraintTop_toBottomOf="@+id/descr_cmd_name"
         app:srcCompat="@drawable/linesep" />
 
+    <TextView
+        android:id="@+id/descr_alias_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/alias_list_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descr_line_sep2" />
+
+    <ListView
+        android:id="@+id/descr_alias_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/descr_line_sep3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descr_alias_title" />
+
     <ImageView
-        android:id="@+id/line_sep3"
-        android:layout_width="match_parent"
+        android:id="@+id/descr_line_sep3"
+        android:layout_width="0dp"
         android:layout_height="3dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -120,16 +102,38 @@
         app:srcCompat="@drawable/linesep"
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/run" />
+        app:layout_constraintBottom_toTopOf="@+id/descr_run"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/descr_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/alias_list_title"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:onClick="OnBackButtonPressed"
+        android:text="@string/back_button"
+        app:layout_constraintBottom_toBottomOf="@+id/descr_run"
+        app:layout_constraintLeft_toRightOf="@+id/descr_run"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_sep2" />
+        app:layout_constraintTop_toTopOf="@+id/descr_run"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/descr_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/button_run"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/descr_back" />
 
 </android.support.constraint.ConstraintLayout>

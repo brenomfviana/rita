@@ -3,11 +3,9 @@ package com.tb.rita.delivery;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tb.rita.R;
@@ -36,7 +34,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         aliases = new ArrayList<>();
         createAliases();
 
-        alias_list = (ListView) findViewById(R.id.alias_list);
+        alias_list = (ListView) findViewById(R.id.descr_alias_list);
         populateAliasList();
         populateCmdName();
     }
@@ -59,12 +57,18 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private void populateCmdName() {
         Intent fromDescr = getIntent();
         cmdName = fromDescr.getStringExtra(CommandsListActivity.CMD_SELECTED);
-        cmdNameView = (TextView) findViewById(R.id.cmd_name);
+        cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
         cmdNameView.setText(cmdName);
     }
 
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
+    }
+
+    public void addAlias(String alias) {
+        if(alias != null && alias.length() > 1) {
+            aliases.add(alias);
+        }
     }
 }
