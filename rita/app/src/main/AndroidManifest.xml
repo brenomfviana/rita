@@ -51,7 +51,13 @@
         </activity>
 
         <!-- Commands Description Activity -->
-
+        <activity android:name=".delivery.CommandDescriptionActivity"
+            android:label="Command Description"
+            android:parentActivityName=".delivery.CommandsListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".delivery.CommandDescriptionActivity"/>
+        </activity>
     </application>
 
 </manifest>

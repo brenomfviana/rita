@@ -28,7 +28,7 @@ public class CommandsListActivity extends AppCompatActivity {
     }
 
 
-    public boolean validateCommand(String cmd) {
+    protected boolean validateCommand(String cmd) {
         return false;
     }
 
