@@ -14,6 +14,7 @@
     <string name="add_button">Adcionar</string>
     <string name="button_confirm">Confirmar</string>
     <string name="button_alias">Novo Apelido</string>
+    <string name="button_run">Executar</string>
 
     <!-- Menu -->
     <string name="title_activity_commands">Comandos</string>
