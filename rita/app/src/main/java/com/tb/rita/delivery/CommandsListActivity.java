@@ -42,5 +42,10 @@ public class CommandsListActivity extends AppCompatActivity {
         startActivity(toNewCmd);
     }
 
+    public void onCmdPressed(View view) {
+        Intent toCmdDescr = new Intent(this, CommandDescriptionActivity.class);
+        startActivity(toCmdDescr);
+    }
+
 
 }
