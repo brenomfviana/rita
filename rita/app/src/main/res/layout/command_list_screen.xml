@@ -9,13 +9,13 @@
         android:id="@+id/icon"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        app:srcCompat="@drawable/rita_icon"
-        android:background="@color/transparent"
+        android:layout_marginTop="50dp"
+        android:background="@null"
         android:scaleType="fitStart"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp" />
+        app:srcCompat="@drawable/rita_icon" />
 
     <Button
         android:id="@+id/command_1"
@@ -25,7 +25,8 @@
         android:text="@string/command_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/command_2"
