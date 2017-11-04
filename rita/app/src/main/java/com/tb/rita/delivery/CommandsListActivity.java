@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.tb.rita.R;
 
@@ -13,23 +14,14 @@ import java.util.List;
 
 public class CommandsListActivity extends AppCompatActivity {
 
-    private List<String> commands;
+    public static final String CMD_SELECTED = "THE COMMAND SELECTED";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_list_screen);
 //        ActionBar actionBar = getActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
-        init();
-    }
-
-    private void init() {
-        commands = new ArrayList();
-    }
-
-
-    protected boolean validateCommand(String cmd) {
-        return false;
     }
 
     public void onBackButtonPressed(View view) {
@@ -44,6 +36,11 @@ public class CommandsListActivity extends AppCompatActivity {
 
     public void onCmdPressed(View view) {
         Intent toCmdDescr = new Intent(this, CommandDescriptionActivity.class);
+        /* Pass the cmd name to command description
+           Change later to pass an instance of the command*/
+        Button pressedBtn = (Button) view;
+        String cmd_name = pressedBtn.getText().toString();
+        toCmdDescr.putExtra(CMD_SELECTED, cmd_name);
         startActivity(toCmdDescr);
     }
 
