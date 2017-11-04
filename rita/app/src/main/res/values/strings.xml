@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Buttons -->
-    <string name="back_button">Voltar</string>
-    <string name="add_button">Adcionar</string>
+
     <!-- Main strings -->
 
     <string name="app_name">RITA</string>
@@ -11,14 +9,20 @@
         Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
     </string>
 
-    <!-- Menu -->
+    <!-- Buttons -->
+    <string name="back_button">Voltar</string>
+    <string name="add_button">Adcionar</string>
+    <string name="button_confirm">Confirmar</string>
 
+    <!-- Menu -->
     <string name="title_activity_commands">Comandos</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="menu_main">Principal</string>
     <string name="menu_share">Compartilhar</string>
     <string name="menu_contact_us">Fale Conosco</string>
 
+    <!-- New Commad Screen Strings -->
+    <string name="cmd_name">Nome do Comando</string>
     <!-- Commands -->
 
     <string name="command_1">Ligue as luzes</string>

@@ -40,6 +40,16 @@
                 android:value=".delivery.MainActivity" />
         </activity>
 
+        <!-- New Command Activity -->
+        <activity
+            android:name=".delivery.NewCommandActivity"
+            android:label="Add New Command"
+            android:parentActivityName=".delivery.CommandsListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".delivery.CommandsListActivity" />
+        </activity>
+
         <!-- Commands Description Activity -->
 
     </application>

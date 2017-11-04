@@ -38,7 +38,8 @@ public class CommandsListActivity extends AppCompatActivity {
     }
 
     public void onAddButtonPressed(View view) {
-        return;
+        Intent toNewCmd = new Intent(this, NewCommandActivity.class);
+        startActivity(toNewCmd);
     }
 
 
