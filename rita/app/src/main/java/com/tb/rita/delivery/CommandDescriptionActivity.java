@@ -16,7 +16,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.commands_descr_screen);
+        setContentView(R.layout.command_descr_screen);
     }
 
     public void OnBackButtonPressed(View view) {
