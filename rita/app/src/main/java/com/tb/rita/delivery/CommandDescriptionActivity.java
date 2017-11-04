@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.tb.rita.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class CommandDescriptionActivity extends AppCompatActivity {
 
+    public static final String CMD_NAME = "NAME OF CMD DESCRIPTED";
     // Views
     private ListView alias_list;
     private TextView cmdNameView;
@@ -26,26 +29,19 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private List<String> aliases;
     private String cmdName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_descr_screen);
         // Initialize class properties
         aliases = new ArrayList<>();
-        createAliases();
+        checkNewAlias();
 
         alias_list = (ListView) findViewById(R.id.descr_alias_list);
         populateAliasList();
         populateCmdName();
-    }
 
-    private void createAliases() {
-        aliases.add("ALIAS 1");
-        aliases.add("ALIAS 2");
-        aliases.add("ALIAS 3");
-        aliases.add("ALIAS 4");
-        aliases.add("ALIAS 5");
-        aliases.add("ALIAS 6");
     }
 
     private void populateAliasList() {
@@ -55,14 +51,16 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void populateCmdName() {
-        Intent fromDescr = getIntent();
-        cmdName = fromDescr.getStringExtra(CommandsListActivity.CMD_SELECTED);
-        cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
+        Intent intent = getIntent();
+        // Get the previous context
+        cmdName = intent.getStringExtra(CMD_NAME);
+        TextView cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
         cmdNameView.setText(cmdName);
     }
 
     public void onNewAliasButtonPressed(View view) {
         Intent toNewAlias = new Intent(this, NewAliasActivity.class);
+        toNewAlias.putExtra(CMD_NAME, cmdName);
         startActivity(toNewAlias);
     }
 
@@ -71,9 +69,11 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         startActivity(toCmdList);
     }
 
-    public void addAlias(String alias) {
-        if(alias != null && alias.length() > 1) {
-            aliases.add(alias);
+    private void checkNewAlias() {
+        Intent intent = getIntent();
+        String newAlias = intent.getStringExtra(NewAliasActivity.NEW_ALIAS_NAME);
+        if(newAlias != null && newAlias.length() > 1 && newAlias.length() < 15) {
+            aliases.add(newAlias);
         }
     }
 }

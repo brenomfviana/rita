@@ -14,8 +14,6 @@ import java.util.List;
 
 public class CommandsListActivity extends AppCompatActivity {
 
-    public static final String CMD_SELECTED = "THE COMMAND SELECTED";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +38,7 @@ public class CommandsListActivity extends AppCompatActivity {
            Change later to pass an instance of the command*/
         Button pressedBtn = (Button) view;
         String cmd_name = pressedBtn.getText().toString();
-        toCmdDescr.putExtra(CMD_SELECTED, cmd_name);
+        toCmdDescr.putExtra(CommandDescriptionActivity.CMD_NAME, cmd_name);
         startActivity(toCmdDescr);
     }
 

@@ -80,19 +80,21 @@
         android:id="@+id/nalias_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_button"
-        app:layout_constraintRight_toLeftOf="@+id/nalias_back_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="16dp"
+        android:onClick="onAddButtonPressed"
+        android:text="@string/add_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/nalias_back_btn"
         app:layout_constraintTop_toBottomOf="@+id/nalias_alias_input" />
 
     <Button
         android:id="@+id/nalias_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onBackButtonPressed"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/nalias_confirm_btn"
-        app:layout_constraintTop_toTopOf="@+id/nalias_confirm_btn"
+        app:layout_constraintLeft_toRightOf="@+id/nalias_confirm_btn"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/nalias_confirm_btn" />
+        app:layout_constraintTop_toTopOf="@+id/nalias_confirm_btn" />
 </android.support.constraint.ConstraintLayout>
