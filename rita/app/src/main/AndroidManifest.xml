@@ -16,6 +16,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,9 +52,18 @@
         </activity>
 
         <!-- Commands Description Activity -->
-        <activity android:name=".delivery.CommandDescriptionActivity"
+        <activity
+            android:name=".delivery.CommandDescriptionActivity"
             android:label="Command Description"
             android:parentActivityName=".delivery.CommandsListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".delivery.CommandDescriptionActivity" />
+        </activity>
+        <activity
+            android:name=".delivery.NewAliasActivity"
+            android:label="New Alias"
+            android:parentActivityName=".delivery.CommandDescriptionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".delivery.CommandDescriptionActivity"/>

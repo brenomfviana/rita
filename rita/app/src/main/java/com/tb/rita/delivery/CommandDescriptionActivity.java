@@ -61,6 +61,11 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         cmdNameView.setText(cmdName);
     }
 
+    public void onNewAliasButtonPressed(View view) {
+        Intent toNewAlias = new Intent(this, NewAliasActivity.class);
+        startActivity(toNewAlias);
+    }
+
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
