@@ -12,8 +12,11 @@ import com.tb.rita.R;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import domain.Command;
 
 /**
  * Created by thales on 04/11/17.
@@ -21,10 +24,11 @@ import java.util.List;
 
 public class CommandDescriptionActivity extends AppCompatActivity {
 
-    public static final String CMD_NAME = "NAME OF CMD DESCRIPTED";
+    public static final String CMD_NAME = "The name of the selected cmd";
+
     // Views
     private ListView alias_list;
-    private TextView cmdNameView;
+    private Command command;
 
     private List<String> aliases;
     private String cmdName;
@@ -35,45 +39,37 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_descr_screen);
         // Initialize class properties
-        aliases = new ArrayList<>();
-        checkNewAlias();
+        Intent intent = getIntent();
+
+        command = (Command) intent.getSerializableExtra(CommandsListActivity.CMD_SELECTED);
+
+        aliases = command.getAliases();
 
         alias_list = (ListView) findViewById(R.id.descr_alias_list);
         populateAliasList();
         populateCmdName();
-
     }
 
     private void populateAliasList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
         alias_list.setAdapter(adapter);
     }
 
     private void populateCmdName() {
-        Intent intent = getIntent();
-        // Get the previous context
-        cmdName = intent.getStringExtra(CMD_NAME);
         TextView cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
-        cmdNameView.setText(cmdName);
+        cmdNameView.setText(command.getName());
     }
 
     public void onNewAliasButtonPressed(View view) {
         Intent toNewAlias = new Intent(this, NewAliasActivity.class);
-        toNewAlias.putExtra(CMD_NAME, cmdName);
+        toNewAlias.putExtra(CommandsListActivity.CMD_SELECTED, command);
         startActivity(toNewAlias);
     }
 
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
+        toCmdList.putExtra(CommandsListActivity.CMD_SELECTED, command);
         startActivity(toCmdList);
-    }
-
-    private void checkNewAlias() {
-        Intent intent = getIntent();
-        String newAlias = intent.getStringExtra(NewAliasActivity.NEW_ALIAS_NAME);
-        if(newAlias != null && newAlias.length() > 1 && newAlias.length() < 15) {
-            aliases.add(newAlias);
-        }
     }
 }

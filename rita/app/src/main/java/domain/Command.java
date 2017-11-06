@@ -1,12 +1,17 @@
 package domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by thales on 04/11/17.
  */
 
-public class Command {
+public class Command implements Serializable {
+
+    public static final int MAX_ALIAS_LENGTH = 15;
+    public static final int MIN_ALIAS_LENGTH = 1;
 
     private String name;
     private List<String> aliases;
@@ -16,6 +21,13 @@ public class Command {
     public Command(String name, Appliance appliance) {
         this.name = name;
         this.appliance = appliance;
+        aliases = new ArrayList<>();
+        sinonyms = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     public String getName() {
