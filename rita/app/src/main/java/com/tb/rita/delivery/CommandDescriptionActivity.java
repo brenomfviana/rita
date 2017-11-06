@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,12 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private void populateAliasList() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
+        alias_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                onAliasPressed(i, view);
+            }
+        });
         alias_list.setAdapter(adapter);
     }
 
@@ -71,5 +78,13 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         toCmdList.putExtra(CommandsListActivity.CMD_SELECTED, command);
         startActivity(toCmdList);
+    }
+
+    private void onAliasPressed(int position, View view) {
+        Intent intent = new Intent(this, NewAliasActivity.class);
+        intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        intent.putExtra(NewAliasActivity.IS_EDIT, true);
+        intent.putExtra(NewAliasActivity.ALIAS_POSITION, position);
+        startActivity(intent);
     }
 }

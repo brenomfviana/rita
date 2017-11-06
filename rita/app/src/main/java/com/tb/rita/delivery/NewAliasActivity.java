@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,10 +16,11 @@ import domain.Command;
 
 public class NewAliasActivity extends AppCompatActivity {
 
-    public static final String NEW_ALIAS_NAME = "INPUT FROM TEXT FIELD";
+    public static final String IS_EDIT = "TO EDIT ALIAS";
+    public static final String ALIAS_POSITION = "POSITION OF ALIAS TO MODIFY";
 
-    private String cmdName;
     private Command command;
+    private boolean isEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,27 @@ public class NewAliasActivity extends AppCompatActivity {
         setContentView(R.layout.new_alias_screen);
         Intent intent = getIntent();
         command = (Command) intent.getSerializableExtra(CommandsListActivity.CMD_SELECTED);
+        isEdit = intent.getBooleanExtra(IS_EDIT, false);
+
+        if(isEdit) setUpEdit(intent);
 
         populateCmdName();
+    }
+
+    private void setUpEdit(Intent intent) {
+        int position = intent.getIntExtra(ALIAS_POSITION, -1);
+        if(position >= 0) {
+            Button btn = (Button) findViewById(R.id.nalias_confirm_btn);
+            btn.setText(R.string.button_confirm);
+
+            EditText edit = (EditText) findViewById(R.id.nalias_alias_input);
+            edit.setText(command.getAliases().get(position));
+        }
     }
 
     private void populateCmdName() {
         TextView cmd_name = (TextView) findViewById(R.id.nalias_cmd_name);
         cmd_name.setText(command.getName());
-
     }
 
     /* Transition functions */
@@ -45,12 +60,20 @@ public class NewAliasActivity extends AppCompatActivity {
     }
 
     public void onAddButtonPressed(View view) {
-        Intent intent = new Intent(this, CommandDescriptionActivity.class);
+        Intent incoming = getIntent();
         EditText newAlias = (EditText) findViewById(R.id.nalias_alias_input);
 
         if(newAlias.getText() != null && validateAlias(newAlias.getText().toString())) {
-            command.getAliases().add(newAlias.getText().toString());
+            if(isEdit) {
+                if(incoming.getIntExtra(ALIAS_POSITION, -1) != -1) {
+                    int position = incoming.getIntExtra(ALIAS_POSITION, -1);
+                    command.getAliases().set(position, newAlias.getText().toString());
+                }
+            } else {
+                command.getAliases().add(newAlias.getText().toString());
+            }
         }
+        Intent intent = new Intent(this, CommandDescriptionActivity.class);
         intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
         startActivity(intent);
     }
