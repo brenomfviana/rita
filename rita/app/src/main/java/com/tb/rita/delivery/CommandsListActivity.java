@@ -33,10 +33,9 @@ public class CommandsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_list_screen);
 
-        Intent intent = getIntent();
-        Command aux = (Command) intent.getSerializableExtra(CMD_SELECTED);
         commands = new ArrayList<>();
         populateCommands();
+        checkCommandsUpdate();
 
         cmdList = (ListView) findViewById(R.id.lst_cmds_list);
         populateCmdView();
@@ -47,6 +46,23 @@ public class CommandsListActivity extends AppCompatActivity {
     private void populateCommands() {
         commands.add(new Command("Ligar ventilador", Appliance.FAN));
         commands.add(new Command("Ligar Televisão", Appliance.TV));
+    }
+
+    private void checkCommandsUpdate() {
+        Intent intent = getIntent();
+
+        if(intent.getSerializableExtra(CMD_SELECTED) != null) {
+            Command newCmd = (Command) intent.getSerializableExtra(CMD_SELECTED);
+
+            for(int i = 0; i < commands.size(); i++) {
+                String newCmdName = newCmd.getName().trim().toUpperCase();
+                String cmdName = commands.get(i).getName().trim().toUpperCase();
+
+                if(cmdName.equals(newCmdName)) {
+                    commands.set(i, newCmd);
+                }
+            }
+        }
     }
 
     private void populateCmdView() {

@@ -40,7 +40,7 @@ public class NewAliasActivity extends AppCompatActivity {
 
     public void onBackButtonPressed(View view) {
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
-        intent.putExtra(CommandDescriptionActivity.CMD_NAME, cmdName);
+        intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
         startActivity(intent);
     }
 
@@ -48,7 +48,7 @@ public class NewAliasActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
         EditText newAlias = (EditText) findViewById(R.id.nalias_alias_input);
 
-        if(validateAlias(newAlias.getText().toString())) {
+        if(newAlias.getText() != null && validateAlias(newAlias.getText().toString())) {
             command.getAliases().add(newAlias.getText().toString());
         }
         intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
