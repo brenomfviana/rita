@@ -16,6 +16,10 @@ import android.view.MenuItem;
 
 import com.tb.rita.R;
 
+import java.util.ArrayList;
+
+import domain.Command;
+
 /**
  * This class is responsible by the main activity.
  * @author Breno Viana
@@ -23,11 +27,15 @@ import com.tb.rita.R;
  */
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Command> commands;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set content
         setContentView(R.layout.home_screen);
+        Intent intent = getIntent();
+        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
     }
 
     public void OnHelpButtonPressed(View view) {
@@ -37,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnCommandsButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
+        toCmdList.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(toCmdList);
     }
 }

@@ -26,7 +26,7 @@ public class CommandsListActivity extends AppCompatActivity {
     private ListView cmdList;
     private ArrayList<Command> commands;
 
-    public static final String CMD_SELECTED = "The command selected";
+    public static final String CMD_SELECTED = "SELECTED COMMAND POSITION";
     public static final String CMD_LIST = "THE CMD LIST";
 
     @Override
@@ -98,10 +98,8 @@ public class CommandsListActivity extends AppCompatActivity {
         Intent toCmdDescr = new Intent(this, CommandDescriptionActivity.class);
         /* Pass the cmd name to command description
            Change later to pass an instance of the command*/
-        TextView pressedBtn = (TextView) view;
-        String cmd_name = pressedBtn.getText().toString();
-        toCmdDescr.putExtra(CommandDescriptionActivity.CMD_NAME, cmd_name);
-        toCmdDescr.putExtra(CMD_SELECTED, commands.get(position));
+        toCmdDescr.putExtra(CMD_SELECTED, position);
+        toCmdDescr.putExtra(CMD_LIST, commands);
         startActivity(toCmdDescr);
     }
 

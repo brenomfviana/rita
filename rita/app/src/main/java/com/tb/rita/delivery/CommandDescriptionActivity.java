@@ -25,14 +25,13 @@ import domain.Command;
 
 public class CommandDescriptionActivity extends AppCompatActivity {
 
-    public static final String CMD_NAME = "The name of the selected cmd";
 
     // Views
     private ListView alias_list;
-    private Command command;
 
+    private int pos;
     private List<String> aliases;
-    private String cmdName;
+    private ArrayList<Command> commands;
 
 
     @Override
@@ -42,11 +41,17 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         // Initialize class properties
         Intent intent = getIntent();
 
-        command = (Command) intent.getSerializableExtra(CommandsListActivity.CMD_SELECTED);
+        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
 
-        aliases = command.getAliases();
+        pos = intent.getIntExtra(CommandsListActivity.CMD_SELECTED, -1);
+        if(pos >= 0) {
+            aliases = commands.get(pos).getAliases();
+        } else {
+            aliases = new ArrayList<>();
+        }
 
         alias_list = (ListView) findViewById(R.id.descr_alias_list);
+
         populateAliasList();
         populateCmdName();
     }
@@ -65,24 +70,26 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
     private void populateCmdName() {
         TextView cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
-        cmdNameView.setText(command.getName());
+        cmdNameView.setText(commands.get(pos).getName());
     }
 
     public void onNewAliasButtonPressed(View view) {
         Intent toNewAlias = new Intent(this, NewAliasActivity.class);
-        toNewAlias.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        toNewAlias.putExtra(CommandsListActivity.CMD_LIST, commands);
+        toNewAlias.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(toNewAlias);
     }
 
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
-        toCmdList.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        toCmdList.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(toCmdList);
     }
 
     private void onAliasPressed(int position, View view) {
         Intent intent = new Intent(this, NewAliasActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
+        intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         intent.putExtra(NewAliasActivity.IS_EDIT, true);
         intent.putExtra(NewAliasActivity.ALIAS_POSITION, position);
         startActivity(intent);

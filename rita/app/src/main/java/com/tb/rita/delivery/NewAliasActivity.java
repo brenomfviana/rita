@@ -12,6 +12,8 @@ import com.tb.rita.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 import domain.Command;
 
 public class NewAliasActivity extends AppCompatActivity {
@@ -22,12 +24,17 @@ public class NewAliasActivity extends AppCompatActivity {
     private Command command;
     private boolean isEdit;
 
+    private int pos;
+    private ArrayList<Command> commands;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_alias_screen);
         Intent intent = getIntent();
-        command = (Command) intent.getSerializableExtra(CommandsListActivity.CMD_SELECTED);
+        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
+        pos = intent.getIntExtra(CommandsListActivity.CMD_SELECTED, -1);
+
         isEdit = intent.getBooleanExtra(IS_EDIT, false);
 
         if(isEdit) setUpEdit(intent);
@@ -42,20 +49,23 @@ public class NewAliasActivity extends AppCompatActivity {
             btn.setText(R.string.button_confirm);
 
             EditText edit = (EditText) findViewById(R.id.nalias_alias_input);
-            edit.setText(command.getAliases().get(position));
+            if(pos >= 0)
+                edit.setText(commands.get(pos).getAliases().get(position));
         }
     }
 
     private void populateCmdName() {
         TextView cmd_name = (TextView) findViewById(R.id.nalias_cmd_name);
-        cmd_name.setText(command.getName());
+        if(pos >= 0)
+            cmd_name.setText(commands.get(pos).getName());
     }
 
     /* Transition functions */
 
     public void onBackButtonPressed(View view) {
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
+        intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(intent);
     }
 
@@ -63,18 +73,21 @@ public class NewAliasActivity extends AppCompatActivity {
         Intent incoming = getIntent();
         EditText newAlias = (EditText) findViewById(R.id.nalias_alias_input);
 
-        if(newAlias.getText() != null && validateAlias(newAlias.getText().toString())) {
+        if(newAlias.getText() != null
+                && validateAlias(newAlias.getText().toString())
+                && pos >= 0) {
             if(isEdit) {
                 if(incoming.getIntExtra(ALIAS_POSITION, -1) != -1) {
                     int position = incoming.getIntExtra(ALIAS_POSITION, -1);
-                    command.getAliases().set(position, newAlias.getText().toString());
+                    commands.get(pos).getAliases().set(position, newAlias.getText().toString());
                 }
             } else {
-                command.getAliases().add(newAlias.getText().toString());
+                commands.get(pos).getAliases().add(newAlias.getText().toString());
             }
         }
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_SELECTED, command);
+        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
+        intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(intent);
     }
 
@@ -88,7 +101,7 @@ public class NewAliasActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        for(String alias_ : command.getAliases()) {
+        for(String alias_ : commands.get(pos).getAliases()) {
             String aux = alias_.trim().toUpperCase();
             String aliasAux = alias.trim().toUpperCase();
 
