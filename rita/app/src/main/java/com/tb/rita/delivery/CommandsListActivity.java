@@ -24,9 +24,10 @@ import domain.Command;
 public class CommandsListActivity extends AppCompatActivity {
 
     private ListView cmdList;
-    private List<Command> commands;
+    private ArrayList<Command> commands;
 
     public static final String CMD_SELECTED = "The command selected";
+    public static final String CMD_LIST = "THE CMD LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +40,13 @@ public class CommandsListActivity extends AppCompatActivity {
 
         cmdList = (ListView) findViewById(R.id.lst_cmds_list);
         populateCmdView();
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void populateCommands() {
-        commands.add(new Command("Ligar ventilador", Appliance.FAN));
-        commands.add(new Command("Ligar Televisão", Appliance.TV));
+        Intent intent = getIntent();
+        if(intent.getSerializableExtra(CMD_LIST) != null) {
+            commands = (ArrayList<Command>) intent.getSerializableExtra(CMD_LIST);
+        }
     }
 
     private void checkCommandsUpdate() {
@@ -79,13 +80,17 @@ public class CommandsListActivity extends AppCompatActivity {
         });
     }
 
+    /** Transition functions **/
+
     public void onBackButtonPressed(View view) {
         Intent toHome = new Intent(this, MainActivity.class);
+        toHome.putExtra(CMD_LIST, commands);
         startActivity(toHome);
     }
 
     public void onAddButtonPressed(View view) {
         Intent toNewCmd = new Intent(this, NewCommandActivity.class);
+        toNewCmd.putExtra(CMD_LIST, commands);
         startActivity(toNewCmd);
     }
 

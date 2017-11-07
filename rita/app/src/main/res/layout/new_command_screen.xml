@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.tb.rita.delivery.NewCommandActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,7 +24,7 @@
         android:id="@+id/ncmd_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="OnBackButtonPressed"
+        android:onClick="onBackNAliasPressed"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/ncmd_confirm_btn"
         app:layout_constraintEnd_toStartOf="@+id/ncmd_confirm_btn"
@@ -52,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:onClick="onAddCmdPressed"
         android:text="@string/button_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
