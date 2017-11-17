@@ -46,17 +46,17 @@ public class NewAliasActivity extends AppCompatActivity {
     private void setUpEdit(Intent intent) {
         int position = intent.getIntExtra(ALIAS_POSITION, -1);
         if(position >= 0) {
-            Button btn = (Button) findViewById(R.id.nalias_confirm_btn);
+            Button btn = findViewById(R.id.nalias_confirm_btn);
             btn.setText(R.string.button_confirm);
 
-            EditText edit = (EditText) findViewById(R.id.nalias_alias_input);
+            EditText edit = findViewById(R.id.nalias_alias_input);
             if(pos >= 0)
                 edit.setText(commands.get(pos).getAliases().get(position).toString());
         }
     }
 
     private void populateCmdName() {
-        TextView cmd_name = (TextView) findViewById(R.id.nalias_cmd_name);
+        TextView cmd_name = findViewById(R.id.nalias_cmd_name);
         if(pos >= 0)
             cmd_name.setText(commands.get(pos).getName());
     }

@@ -83,6 +83,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:scrollbarSize="@dimen/scrollbar_size"
         app:layout_constraintBottom_toTopOf="@+id/descr_line_sep3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
