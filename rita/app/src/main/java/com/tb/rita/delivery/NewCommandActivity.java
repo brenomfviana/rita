@@ -1,6 +1,7 @@
 package com.tb.rita.delivery;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -56,11 +57,25 @@ public class NewCommandActivity extends AppCompatActivity {
 
     private void populateAppliances() {
         RadioGroup radios = (RadioGroup) findViewById(R.id.ncmd_appliances);
+
+        // States of the radio
+        int[][] colorStates = new int[][] {
+                new int[]{-R.attr.state_enabled},
+                new int[]{R.attr.state_enabled}
+        };
+
+        // Colors of the radios
+        int[] colors = new int[] {
+                getResources().getColor(R.color.colorPrimary),
+                getResources().getColor(R.color.colorPrimaryDark),
+        };
+
         Appliance appliances[] = Appliance.values();
         for(int i = 0; i < appliances.length; i++) {
             RadioButton rb = new RadioButton(this);
             rb.setText(appliances[i].toString());
             rb.setId(i);
+            rb.setButtonTintList(new ColorStateList(colorStates, colors));
             radios.addView(rb);
         }
     }
