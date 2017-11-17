@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 /**
  * Created by thales on 17/11/17.
  */
@@ -15,7 +17,7 @@ import android.arch.persistence.room.PrimaryKey;
                                            parentColumns = "id_cmd",
                                            childColumns = "id_cmd"),
         indices = {@Index(value = "name", unique = true)})
-public class Alias {
+public class Alias implements Serializable {
 
     @PrimaryKey
     private int id_alias;
