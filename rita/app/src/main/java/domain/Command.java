@@ -1,5 +1,11 @@
 package domain;
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,27 +13,38 @@ import java.util.List;
 /**
  * Created by thales on 04/11/17.
  */
-
+@Entity(tableName = "command",
+        indices = {@Index(value = "name", unique = true)})
 public class Command implements Serializable {
 
     public static final int MAX_ALIAS_LENGTH = 15;
     public static final int MIN_ALIAS_LENGTH = 1;
 
+    @PrimaryKey
+    private int id_cmd;
     private String name;
-    private List<String> aliases;
-    private List<String> sinonyms;
-    private Appliance appliance;
+    private int appliance;
 
-    public Command(String name, Appliance appliance) {
+    @Ignore
+    private List<Alias> aliases;
+
+    public Command(String name, int appliance) {
         this.name = name;
         this.appliance = appliance;
         aliases = new ArrayList<>();
-        sinonyms = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public int getId_cmd() {
+        return id_cmd;
+    }
+
+    public void  setId_cmd(int id_cmd) {
+        this.id_cmd = id_cmd;
     }
 
     public String getName() {
@@ -38,27 +55,19 @@ public class Command implements Serializable {
         this.name = name;
     }
 
-    public List<String> getAliases() {
+    public List<Alias> getAliases() {
         return aliases;
     }
 
-    public void setAliases(List<String> aliases) {
+    public void setAliases(List<Alias> aliases) {
         this.aliases = aliases;
     }
 
-    public List<String> getSinonyms() {
-        return sinonyms;
-    }
-
-    public void setSinonyms(List<String> sinonyms) {
-        this.sinonyms = sinonyms;
-    }
-
-    public Appliance getAppliance() {
+    public int getAppliance() {
         return appliance;
     }
 
-    public void setAppliance(Appliance appliance) {
+    public void setAppliance(int appliance) {
         this.appliance = appliance;
     }
 }

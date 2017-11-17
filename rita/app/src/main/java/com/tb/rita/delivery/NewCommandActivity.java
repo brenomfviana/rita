@@ -76,7 +76,7 @@ public class NewCommandActivity extends AppCompatActivity {
             Appliance appliances[] = Appliance.values();
             Appliance cmdAppliance = appliances[selectedRadio];
 
-            return new Command(cmdName, cmdAppliance);
+            return new Command(cmdName, cmdAppliance.ordinal());
         } else {
             return null;
         }

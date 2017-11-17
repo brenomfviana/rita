@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.Alias;
 import domain.Command;
 
 /**
@@ -30,7 +31,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private ListView alias_list;
 
     private int pos;
-    private List<String> aliases;
+    private List<Alias> aliases;
     private ArrayList<Command> commands;
 
 
@@ -57,7 +58,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void populateAliasList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Alias> adapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
         alias_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

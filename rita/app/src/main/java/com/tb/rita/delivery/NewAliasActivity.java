@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import domain.Alias;
 import domain.Command;
 
 public class NewAliasActivity extends AppCompatActivity {
@@ -50,7 +51,7 @@ public class NewAliasActivity extends AppCompatActivity {
 
             EditText edit = (EditText) findViewById(R.id.nalias_alias_input);
             if(pos >= 0)
-                edit.setText(commands.get(pos).getAliases().get(position));
+                edit.setText(commands.get(pos).getAliases().get(position).toString());
         }
     }
 
@@ -71,7 +72,8 @@ public class NewAliasActivity extends AppCompatActivity {
 
     public void onAddButtonPressed(View view) {
         Intent incoming = getIntent();
-        EditText newAlias = (EditText) findViewById(R.id.nalias_alias_input);
+        EditText newAlias = findViewById(R.id.nalias_alias_input);
+        Alias alias = new Alias(0,0, newAlias.getText().toString(), false);
 
         if(newAlias.getText() != null
                 && validateAlias(newAlias.getText().toString())
@@ -79,10 +81,10 @@ public class NewAliasActivity extends AppCompatActivity {
             if(isEdit) {
                 if(incoming.getIntExtra(ALIAS_POSITION, -1) != -1) {
                     int position = incoming.getIntExtra(ALIAS_POSITION, -1);
-                    commands.get(pos).getAliases().set(position, newAlias.getText().toString());
+                    commands.get(pos).getAliases().set(position, alias);
                 }
             } else {
-                commands.get(pos).getAliases().add(newAlias.getText().toString());
+                commands.get(pos).getAliases().add(alias);
             }
         }
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
@@ -101,8 +103,8 @@ public class NewAliasActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        for(String alias_ : commands.get(pos).getAliases()) {
-            String aux = alias_.trim().toUpperCase();
+        for(Alias alias_ : commands.get(pos).getAliases()) {
+            String aux = alias_.getName().trim().toUpperCase();
             String aliasAux = alias.trim().toUpperCase();
 
             if(aux.equals(aliasAux)) {
