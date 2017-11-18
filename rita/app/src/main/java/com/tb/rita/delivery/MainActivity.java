@@ -17,8 +17,13 @@ import android.view.MenuItem;
 import com.tb.rita.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import domain.Alias;
 import domain.Command;
+import domain.dao.AliasDao;
+import domain.dao.AppDatabase;
+import domain.dao.CommandDao;
 
 /**
  * This class is responsible by the main activity.
@@ -35,7 +40,23 @@ public class MainActivity extends AppCompatActivity {
         // Set content
         setContentView(R.layout.home_screen);
         Intent intent = getIntent();
-        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
+        final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
+        final AliasDao aliasDao = AppDatabase.getINSTANCE(this).aliasDao();
+
+        if(intent.getSerializableExtra())
+
+        new Runnable() {
+            @Override
+            public void run() {
+                commands = new ArrayList<>(cmdDao.getAll());
+
+                for(Command cmd : commands) {
+                    List<Alias> cmdAlias = aliasDao.getByCmd(cmd.getId_cmd());
+                    if(cmdAlias != null)
+                        cmd.setAliases(cmdAlias);
+                }
+            }
+        };
     }
 
     public void OnHelpButtonPressed(View view) {

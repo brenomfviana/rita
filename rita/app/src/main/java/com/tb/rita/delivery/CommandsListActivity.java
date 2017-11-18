@@ -38,7 +38,7 @@ public class CommandsListActivity extends AppCompatActivity {
         populateCommands();
         checkCommandsUpdate();
 
-        cmdList = (ListView) findViewById(R.id.lst_cmds_list);
+        cmdList = findViewById(R.id.lst_cmds_list);
         populateCmdView();
     }
 

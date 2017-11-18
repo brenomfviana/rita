@@ -17,6 +17,8 @@ import java.util.List;
 
 import domain.Appliance;
 import domain.Command;
+import domain.dao.AppDatabase;
+import domain.dao.CommandDao;
 
 /**
  * Created by thales on 04/11/17.
@@ -39,8 +41,15 @@ public class NewCommandActivity extends AppCompatActivity {
 
     public void onAddCmdPressed(View view) {
         // Creates the new command
-        Command cmd = getNewCmd();
+        final Command cmd = getNewCmd();
         if(verifyCmd(cmd)) {
+            final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
+            new Runnable() {
+                @Override
+                public void run() {
+                    cmdDao.insertAll(getNewCmd());
+                }
+            };
             commands.add(cmd);
         }
         // Send the new list of commands to the other activity
