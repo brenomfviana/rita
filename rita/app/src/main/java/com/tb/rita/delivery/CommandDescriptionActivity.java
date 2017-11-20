@@ -1,7 +1,10 @@
 package com.tb.rita.delivery;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,14 +14,15 @@ import android.widget.TextView;
 
 import com.tb.rita.R;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.Alias;
 import domain.Command;
+import domain.dao.AliasDao;
+import domain.dao.AppDatabase;
+import domain.models.AliasViewModel;
+import domain.models.CommandViewModel;
 
 /**
  * Created by thales on 04/11/17.
@@ -32,7 +36,8 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
     private int pos;
     private List<Alias> aliases;
-    private ArrayList<Command> commands;
+    private CommandViewModel cmdModel;
+    private AliasViewModel aliasViewModel;
 
 
     @Override
@@ -41,23 +46,33 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.command_descr_screen);
         // Initialize class properties
         Intent intent = getIntent();
-
-        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
-
+        aliasViewModel = ViewModelProviders.of(this).get(AliasViewModel.class);
         pos = intent.getIntExtra(CommandsListActivity.CMD_SELECTED, -1);
-        if(pos >= 0) {
-            aliases = commands.get(pos).getAliases();
-        } else {
-            aliases = new ArrayList<>();
-        }
+        alias_list = findViewById(R.id.descr_alias_list);
 
-        alias_list = (ListView) findViewById(R.id.descr_alias_list);
-
-        populateAliasList();
-        populateCmdName();
+        subscribeAliases();
+        subscribeCommand();
     }
 
-    private void populateAliasList() {
+    private void subscribeCommand() {
+        cmdModel.commands.observe(this, new Observer<List<Command>>() {
+            @Override
+            public void onChanged(@Nullable List<Command> commands) {
+                populateCmdName(commands.get(pos));
+            }
+        });
+    }
+
+    private void subscribeAliases() {
+        aliasViewModel.aliases.observe(this, new Observer<List<Alias>>() {
+            @Override
+            public void onChanged(@Nullable List<Alias> aliases) {
+                populateAliasList(aliases);
+            }
+        });
+    }
+
+    private void populateAliasList(List<Alias> aliases) {
         ArrayAdapter<Alias> adapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
         alias_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,27 +84,24 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         alias_list.setAdapter(adapter);
     }
 
-    private void populateCmdName() {
-        TextView cmdNameView = (TextView) findViewById(R.id.descr_cmd_name);
-        cmdNameView.setText(commands.get(pos).getName());
+    private void populateCmdName(Command cmd) {
+        TextView cmdNameView = findViewById(R.id.descr_cmd_name);
+        cmdNameView.setText(cmd.getName());
     }
 
     public void onNewAliasButtonPressed(View view) {
         Intent toNewAlias = new Intent(this, NewAliasActivity.class);
-        toNewAlias.putExtra(CommandsListActivity.CMD_LIST, commands);
         toNewAlias.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(toNewAlias);
     }
 
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
-        toCmdList.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(toCmdList);
     }
 
     private void onAliasPressed(int position, View view) {
         Intent intent = new Intent(this, NewAliasActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
         intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         intent.putExtra(NewAliasActivity.IS_EDIT, true);
         intent.putExtra(NewAliasActivity.ALIAS_POSITION, position);

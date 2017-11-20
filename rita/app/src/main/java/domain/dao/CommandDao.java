@@ -1,5 +1,6 @@
 package domain.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -18,13 +19,13 @@ import domain.Command;
 @Dao
 public interface CommandDao {
     @Query("SELECT * FROM command")
-    List<Command> getAll();
+    LiveData<List<Command>> getAll();
 
     @Query("SELECT * FROM command WHERE id_cmd = :id")
-    Command getById(int id);
+    LiveData<Command> getById(int id);
 
     @Query("SELECT * FROM command WHERE name = :name")
-    Command getByName(String name);
+    LiveData<Command> getByName(String name);
 
     @Insert
     void insertAll(Command...commands);

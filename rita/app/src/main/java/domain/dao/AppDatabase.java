@@ -22,18 +22,10 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CommandDao commandDao();
     public abstract AliasDao aliasDao();
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            //
-        }
-    };
-
     public static AppDatabase getINSTANCE(Context context) {
         if(INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                            AppDatabase.class,
-                                            "myDb").addMigrations(MIGRATION_1_2).build();
+            INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(),
+                                                    AppDatabase.class).build();
         }
         return INSTANCE;
     }

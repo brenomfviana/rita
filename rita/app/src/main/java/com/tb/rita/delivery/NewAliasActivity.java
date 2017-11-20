@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 import domain.Alias;
 import domain.Command;
+import domain.dao.AliasDao;
+import domain.dao.AppDatabase;
 
 public class NewAliasActivity extends AppCompatActivity {
 
@@ -33,11 +35,8 @@ public class NewAliasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_alias_screen);
         Intent intent = getIntent();
-        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
         pos = intent.getIntExtra(CommandsListActivity.CMD_SELECTED, -1);
-
         isEdit = intent.getBooleanExtra(IS_EDIT, false);
-
         if(isEdit) setUpEdit(intent);
 
         populateCmdName();
@@ -65,7 +64,6 @@ public class NewAliasActivity extends AppCompatActivity {
 
     public void onBackButtonPressed(View view) {
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
         intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(intent);
     }
@@ -73,11 +71,22 @@ public class NewAliasActivity extends AppCompatActivity {
     public void onAddButtonPressed(View view) {
         Intent incoming = getIntent();
         EditText newAlias = findViewById(R.id.nalias_alias_input);
-        Alias alias = new Alias(0,0, newAlias.getText().toString(), false);
+        Command selectedCmd = commands.get(pos);
+
+        final Alias alias = new Alias(selectedCmd.getId_cmd(), newAlias.getText().toString(), false);
 
         if(newAlias.getText() != null
                 && validateAlias(newAlias.getText().toString())
                 && pos >= 0) {
+            final AliasDao aliasDao = AppDatabase.getINSTANCE(this).aliasDao();
+
+            Thread aliasUpdater = new Thread() {
+                @Override
+                public void run() {
+                    aliasDao.insertAll(alias);
+                }
+            };
+
             if(isEdit) {
                 if(incoming.getIntExtra(ALIAS_POSITION, -1) != -1) {
                     int position = incoming.getIntExtra(ALIAS_POSITION, -1);
@@ -86,9 +95,9 @@ public class NewAliasActivity extends AppCompatActivity {
             } else {
                 commands.get(pos).getAliases().add(alias);
             }
+            aliasUpdater.start();
         }
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
         intent.putExtra(CommandsListActivity.CMD_SELECTED, pos);
         startActivity(intent);
     }

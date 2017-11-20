@@ -1,5 +1,6 @@
 package domain.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -10,6 +11,8 @@ import java.util.List;
 
 import domain.Alias;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 /**
  * Created by thales on 17/11/17.
  */
@@ -18,16 +21,13 @@ import domain.Alias;
 public interface AliasDao {
 
     @Query("SELECT * FROM alias WHERE id_cmd = :id_cmd")
-    List<Alias> getByCmd(int id_cmd);
+    LiveData<List<Alias>> getByCmd(int id_cmd);
 
     @Query("SELECT * FROM alias")
-    List<Alias> getAll();
+    LiveData<List<Alias>> getAll();
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insertAll(Alias...alias);
-
-    @Update
-    void update(Alias alias);
 
     @Delete
     void delete(Alias alias);

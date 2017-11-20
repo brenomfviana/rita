@@ -27,8 +27,7 @@ public class Alias implements Serializable {
     @ColumnInfo(name = "is_synonym")
     private boolean isSynonym;
 
-    public Alias(int id_alias, int id_cmd, String name, boolean isSynonym) {
-        this.id_alias = id_alias;
+    public Alias(int id_cmd, String name, boolean isSynonym) {
         this.id_cmd = id_cmd;
         this.name = name;
         this.isSynonym = isSynonym;
@@ -41,6 +40,10 @@ public class Alias implements Serializable {
 
     public int getId_alias() {
         return id_alias;
+    }
+
+    public void setId_alias(int id_alias) {
+        this.id_alias = id_alias;
     }
 
     public int getId_cmd() {

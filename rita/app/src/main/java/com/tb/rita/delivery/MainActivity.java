@@ -40,24 +40,6 @@ public class MainActivity extends AppCompatActivity {
         // Set content
         setContentView(R.layout.home_screen);
         Intent intent = getIntent();
-        final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
-        final AliasDao aliasDao = AppDatabase.getINSTANCE(this).aliasDao();
-
-//        Thread getCmds = new Thread();
-        Thread getCmds = new Thread() {
-            @Override
-            public void run() {
-                commands = new ArrayList<>(cmdDao.getAll());
-
-                for (Command cmd : commands) {
-                    List<Alias> cmdAlias = aliasDao.getByCmd(cmd.getId_cmd());
-                    if (cmdAlias != null)
-                        cmd.setAliases(cmdAlias);
-                }
-            }
-        };
-
-        getCmds.start();
     }
 
     public void OnHelpButtonPressed(View view) {
@@ -67,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnCommandsButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
-        toCmdList.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(toCmdList);
     }
 }

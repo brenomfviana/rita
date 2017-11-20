@@ -1,8 +1,12 @@
 package com.tb.rita.delivery;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +23,7 @@ import domain.Appliance;
 import domain.Command;
 import domain.dao.AppDatabase;
 import domain.dao.CommandDao;
+import domain.models.CommandViewModel;
 
 /**
  * Created by thales on 04/11/17.
@@ -26,42 +31,43 @@ import domain.dao.CommandDao;
 
 public class NewCommandActivity extends AppCompatActivity {
 
-    ArrayList<Command> commands;
+    private CommandViewModel cmdModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set content
         setContentView(R.layout.new_command_screen);
-
-        Intent intent = getIntent();
-        commands = (ArrayList<Command>) intent.getSerializableExtra(CommandsListActivity.CMD_LIST);
+        cmdModel = ViewModelProviders.of(this).get(CommandViewModel.class);
+        subscribeCommands();
         populateAppliances();
+    }
+
+    private void subscribeCommands() {
+        if(cmdModel.commands == null)
+            cmdModel.commands = new LiveData<List<Command>>() {};
+        cmdModel.commands.observe(this, new Observer<List<Command>>() {
+            @Override
+            public void onChanged(@Nullable List<Command> commands) {
+                onAddCmdPressed(findViewById(R.id.ncmd_confirm_btn));
+            }
+        });
+    }
+
+    private void addCmd(Command cmd) {
+
     }
 
     public void onAddCmdPressed(View view) {
         // Creates the new command
-        Command cmd = getNewCmd();
-        if(verifyCmd(cmd)) {
-            final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
-            Thread persistCmd = new Thread() {
-                @Override
-                public void run() {
-                    cmdDao.insertAll(getNewCmd());
-                }
-            };
-            persistCmd.start();
-            commands.add(cmd);
-        }
+        addCmd(getNewCmd());
         // Send the new list of commands to the other activity
         Intent intent = new Intent(this, CommandsListActivity.class);
-        intent.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(intent);
     }
 
     public void onBackNAliasPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
-        toCmdList.putExtra(CommandsListActivity.CMD_LIST, commands);
         startActivity(toCmdList);
     }
 
@@ -107,7 +113,7 @@ public class NewCommandActivity extends AppCompatActivity {
         }
     }
 
-    private boolean verifyCmd(Command cmd) {
+    private boolean verifyCmd(Command cmd, List<Command> commands) {
         boolean isValid = true;
         if(cmd == null) {
             isValid = false;
