@@ -1,39 +1,29 @@
 package com.tb.rita.delivery;
 
-import android.app.ActionBar;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ListMenuItemView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tb.rita.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.Alias;
-import domain.Appliance;
 import domain.Command;
-import domain.dao.AliasDao;
 import domain.dao.AppDatabase;
-import domain.dao.CommandDao;
-import domain.models.AliasViewModel;
-import domain.models.CommandViewModel;
+import domain.models.CommandListViewModel;
 
 public class CommandsListActivity extends AppCompatActivity {
 
-    private CommandViewModel cmdModel;
+    private CommandListViewModel cmdModel;
 
     public static final String CMD_SELECTED = "SELECTED COMMAND POSITION";
 
@@ -41,8 +31,13 @@ public class CommandsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_list_screen);
-        cmdModel = ViewModelProviders.of(this).get(CommandViewModel.class);
+        cmdModel = ViewModelProviders.of(this).get(CommandListViewModel.class);
         subscribeCommands();
+        cmdModel.createDb();
+        if(cmdModel.commands.getValue() == null)
+            showCmds(new ArrayList<Command>());
+        else
+            showCmds(cmdModel.commands.getValue());
     }
 
     private void subscribeCommands() {

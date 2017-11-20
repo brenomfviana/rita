@@ -1,15 +1,11 @@
 package com.tb.rita.delivery;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,8 +18,6 @@ import java.util.List;
 import domain.Appliance;
 import domain.Command;
 import domain.dao.AppDatabase;
-import domain.dao.CommandDao;
-import domain.models.CommandViewModel;
 
 /**
  * Created by thales on 04/11/17.
@@ -31,36 +25,37 @@ import domain.models.CommandViewModel;
 
 public class NewCommandActivity extends AppCompatActivity {
 
-    private CommandViewModel cmdModel;
+//    private CommandListViewModel cmdModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set content
         setContentView(R.layout.new_command_screen);
-        cmdModel = ViewModelProviders.of(this).get(CommandViewModel.class);
-        subscribeCommands();
         populateAppliances();
     }
 
-    private void subscribeCommands() {
-        if(cmdModel.commands == null)
-            cmdModel.commands = new LiveData<List<Command>>() {};
-        cmdModel.commands.observe(this, new Observer<List<Command>>() {
+    public void addCmd(final Context context) {
+        Thread thread = new Thread() {
             @Override
-            public void onChanged(@Nullable List<Command> commands) {
-                onAddCmdPressed(findViewById(R.id.ncmd_confirm_btn));
+            public void run() {
+                Command newCmd = getNewCmd();
+                if(verifyCmd(newCmd, new ArrayList<Command>()))
+                    AppDatabase.getINSTANCE(context).commandDao().insertAll(getNewCmd());
             }
-        });
-    }
+        };
 
-    private void addCmd(Command cmd) {
-
+        try {
+            thread.start();
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onAddCmdPressed(View view) {
         // Creates the new command
-        addCmd(getNewCmd());
+        addCmd(this);
         // Send the new list of commands to the other activity
         Intent intent = new Intent(this, CommandsListActivity.class);
         startActivity(intent);
@@ -139,7 +134,6 @@ public class NewCommandActivity extends AppCompatActivity {
                 }
             }
         }
-
         return isValid;
     }
 

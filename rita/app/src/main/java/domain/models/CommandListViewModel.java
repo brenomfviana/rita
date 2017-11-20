@@ -13,20 +13,28 @@ import domain.dao.AppDatabase;
  * Created by thalesaguiar on 20/11/2017.
  */
 
-public class CommandViewModel extends AndroidViewModel {
+public class CommandListViewModel extends AndroidViewModel {
 
     public LiveData<List<Command>> commands;
     private AppDatabase mDb;
 
-    CommandViewModel(Application application) {
+    CommandListViewModel(Application application) {
         super(application);
         createDb();
-        new Thread() {
+        commands = new LiveData<List<Command>>() {};
+        Thread worker = new Thread() {
             @Override
             public void run() {
                 commands = mDb.commandDao().getAll();
             }
-        }.start();
+        };
+
+        worker.start();
+        try {
+            worker.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createDb() {

@@ -14,15 +14,12 @@ import android.widget.TextView;
 
 import com.tb.rita.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import domain.Alias;
 import domain.Command;
-import domain.dao.AliasDao;
-import domain.dao.AppDatabase;
 import domain.models.AliasViewModel;
-import domain.models.CommandViewModel;
+import domain.models.CommandListViewModel;
 
 /**
  * Created by thales on 04/11/17.
@@ -36,7 +33,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
     private int pos;
     private List<Alias> aliases;
-    private CommandViewModel cmdModel;
+    private CommandListViewModel cmdModel;
     private AliasViewModel aliasViewModel;
 
 

@@ -22,10 +22,10 @@ public interface CommandDao {
     LiveData<List<Command>> getAll();
 
     @Query("SELECT * FROM command WHERE id_cmd = :id")
-    LiveData<Command> getById(int id);
+    Command findCommandById(int id);
 
     @Query("SELECT * FROM command WHERE name = :name")
-    LiveData<Command> getByName(String name);
+    Command findCommandByName(String name);
 
     @Insert
     void insertAll(Command...commands);
