@@ -43,20 +43,21 @@ public class MainActivity extends AppCompatActivity {
         final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
         final AliasDao aliasDao = AppDatabase.getINSTANCE(this).aliasDao();
 
-        if(intent.getSerializableExtra())
-
-        new Runnable() {
+//        Thread getCmds = new Thread();
+        Thread getCmds = new Thread() {
             @Override
             public void run() {
                 commands = new ArrayList<>(cmdDao.getAll());
 
-                for(Command cmd : commands) {
+                for (Command cmd : commands) {
                     List<Alias> cmdAlias = aliasDao.getByCmd(cmd.getId_cmd());
-                    if(cmdAlias != null)
+                    if (cmdAlias != null)
                         cmd.setAliases(cmdAlias);
                 }
             }
         };
+
+        getCmds.start();
     }
 
     public void OnHelpButtonPressed(View view) {

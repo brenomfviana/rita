@@ -41,15 +41,16 @@ public class NewCommandActivity extends AppCompatActivity {
 
     public void onAddCmdPressed(View view) {
         // Creates the new command
-        final Command cmd = getNewCmd();
+        Command cmd = getNewCmd();
         if(verifyCmd(cmd)) {
             final CommandDao cmdDao = AppDatabase.getINSTANCE(this).commandDao();
-            new Runnable() {
+            Thread persistCmd = new Thread() {
                 @Override
                 public void run() {
                     cmdDao.insertAll(getNewCmd());
                 }
             };
+            persistCmd.start();
             commands.add(cmd);
         }
         // Send the new list of commands to the other activity
@@ -65,7 +66,7 @@ public class NewCommandActivity extends AppCompatActivity {
     }
 
     private void populateAppliances() {
-        RadioGroup radios = (RadioGroup) findViewById(R.id.ncmd_appliances);
+        RadioGroup radios = findViewById(R.id.ncmd_appliances);
 
         // States of the radio
         int[][] colorStates = new int[][] {
@@ -90,8 +91,8 @@ public class NewCommandActivity extends AppCompatActivity {
     }
 
     private Command getNewCmd() {
-        EditText cmdNameInput = (EditText) findViewById(R.id.ncmd_input_text);
-        RadioGroup applianceRadios = (RadioGroup) findViewById(R.id.ncmd_appliances);
+        EditText cmdNameInput = findViewById(R.id.ncmd_input_text);
+        RadioGroup applianceRadios = findViewById(R.id.ncmd_appliances);
         if(cmdNameInput.getText() != null &&
                 applianceRadios.getCheckedRadioButtonId() != - 1) {
             String cmdName = cmdNameInput.getText().toString();

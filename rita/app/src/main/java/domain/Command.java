@@ -20,7 +20,7 @@ public class Command implements Serializable {
     public static final int MAX_ALIAS_LENGTH = 15;
     public static final int MIN_ALIAS_LENGTH = 1;
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id_cmd;
     private String name;
     private int appliance;

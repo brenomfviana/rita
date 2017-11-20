@@ -19,7 +19,7 @@ import java.io.Serializable;
         indices = {@Index(value = "name", unique = true)})
 public class Alias implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id_alias;
     private int id_cmd;
     private String name;
