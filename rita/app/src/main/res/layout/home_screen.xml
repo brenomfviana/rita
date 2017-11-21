@@ -46,8 +46,8 @@
 
     <ImageButton
         android:id="@+id/cmd_list"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -64,8 +64,8 @@
 
     <ImageButton
         android:id="@+id/settings"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
         android:background="@null"
@@ -80,8 +80,8 @@
 
     <ImageButton
         android:id="@+id/help"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"

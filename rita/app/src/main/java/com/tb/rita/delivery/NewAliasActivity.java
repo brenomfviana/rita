@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.tb.rita.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import domain.Alias;
@@ -78,7 +76,7 @@ public class NewAliasActivity extends AppCompatActivity {
         if(newAlias.getText() != null
                 && validateAlias(newAlias.getText().toString())
                 && pos >= 0) {
-            final AliasDao aliasDao = AppDatabase.getINSTANCE(this).aliasDao();
+            final AliasDao aliasDao = AppDatabase.getDatabase(this).aliasDao();
 
             Thread aliasUpdater = new Thread() {
                 @Override

@@ -25,8 +25,6 @@ import domain.dao.AppDatabase;
 
 public class NewCommandActivity extends AppCompatActivity {
 
-//    private CommandListViewModel cmdModel;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +39,10 @@ public class NewCommandActivity extends AppCompatActivity {
             public void run() {
                 Command newCmd = getNewCmd();
                 if(verifyCmd(newCmd, new ArrayList<Command>()))
-                    AppDatabase.getINSTANCE(context).commandDao().insertAll(getNewCmd());
+                    AppDatabase.getDatabase(context).commandDao().insertAll(getNewCmd());
             }
         };
+
 
         try {
             thread.start();

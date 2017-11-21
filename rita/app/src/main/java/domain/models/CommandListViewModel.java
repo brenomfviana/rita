@@ -38,6 +38,6 @@ public class CommandListViewModel extends AndroidViewModel {
     }
 
     public void createDb() {
-        mDb = AppDatabase.getINSTANCE(this.getApplication());
+        mDb = AppDatabase.getDatabase(this.getApplication());
     }
 }

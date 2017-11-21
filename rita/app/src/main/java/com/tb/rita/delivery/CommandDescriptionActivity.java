@@ -14,11 +14,14 @@ import android.widget.TextView;
 
 import com.tb.rita.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.Alias;
 import domain.Command;
-import domain.models.AliasViewModel;
+import domain.dao.AppDatabase;
+import domain.dao.CommandDao;
+import domain.models.CommandDescriptionViewModel;
 import domain.models.CommandListViewModel;
 
 /**
@@ -30,11 +33,10 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
     // Views
     private ListView alias_list;
-
     private int pos;
-    private List<Alias> aliases;
-    private CommandListViewModel cmdModel;
-    private AliasViewModel aliasViewModel;
+    private CommandDescriptionViewModel cmdDescrModel;
+    private List<Command> cmds;
+    public static final String CMD_ID = "ID OF THE SELECTED COMMAND";
 
 
     @Override
@@ -43,25 +45,25 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.command_descr_screen);
         // Initialize class properties
         Intent intent = getIntent();
-        aliasViewModel = ViewModelProviders.of(this).get(AliasViewModel.class);
-        pos = intent.getIntExtra(CommandsListActivity.CMD_SELECTED, -1);
+        pos = intent.getIntExtra(CMD_ID, -1);
         alias_list = findViewById(R.id.descr_alias_list);
 
-        subscribeAliases();
-        subscribeCommand();
+        cmdDescrModel = ViewModelProviders.of(this).get(CommandDescriptionViewModel.class);
+        cmdDescrModel.createDb();
+        cmdDescrModel.init(pos);
+        subscribeData();
     }
 
-    private void subscribeCommand() {
-        cmdModel.commands.observe(this, new Observer<List<Command>>() {
+    private void subscribeData() {
+
+        cmdDescrModel.command.observe(this, new Observer<Command>() {
             @Override
-            public void onChanged(@Nullable List<Command> commands) {
-                populateCmdName(commands.get(pos));
+            public void onChanged(@Nullable Command command) {
+                populateCmdName(command);
             }
         });
-    }
 
-    private void subscribeAliases() {
-        aliasViewModel.aliases.observe(this, new Observer<List<Alias>>() {
+        cmdDescrModel.aliases.observe(this, new Observer<List<Alias>>() {
             @Override
             public void onChanged(@Nullable List<Alias> aliases) {
                 populateAliasList(aliases);
@@ -70,6 +72,8 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void populateAliasList(List<Alias> aliases) {
+        if(aliases == null)
+            aliases = new ArrayList<>();
         ArrayAdapter<Alias> adapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, aliases);
         alias_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +86,8 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void populateCmdName(Command cmd) {
+        if(cmd == null)
+            cmd = new Command("", 1);
         TextView cmdNameView = findViewById(R.id.descr_cmd_name);
         cmdNameView.setText(cmd.getName());
     }

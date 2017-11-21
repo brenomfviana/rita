@@ -19,11 +19,13 @@ import java.util.List;
 
 import domain.Command;
 import domain.dao.AppDatabase;
+import domain.dao.CommandDao;
 import domain.models.CommandListViewModel;
 
 public class CommandsListActivity extends AppCompatActivity {
 
     private CommandListViewModel cmdModel;
+    private List<Command> cmds;
 
     public static final String CMD_SELECTED = "SELECTED COMMAND POSITION";
 
@@ -32,17 +34,11 @@ public class CommandsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.command_list_screen);
         cmdModel = ViewModelProviders.of(this).get(CommandListViewModel.class);
-        subscribeCommands();
         cmdModel.createDb();
-        if(cmdModel.commands.getValue() == null)
-            showCmds(new ArrayList<Command>());
-        else
-            showCmds(cmdModel.commands.getValue());
+        subscribeCommands();
     }
 
     private void subscribeCommands() {
-        if(cmdModel.commands == null)
-            cmdModel.commands = new LiveData<List<Command>>() {};
         cmdModel.commands.observe(this, new Observer<List<Command>>() {
             @Override
             public void onChanged(@Nullable List<Command> commands) {
@@ -82,7 +78,7 @@ public class CommandsListActivity extends AppCompatActivity {
         Intent toCmdDescr = new Intent(this, CommandDescriptionActivity.class);
         /* Pass the cmd name to command description
            Change later to pass an instance of the command */
-        toCmdDescr.putExtra(CMD_SELECTED, commands.get(position).getId_cmd());
+        toCmdDescr.putExtra(CommandDescriptionActivity.CMD_ID, commands.get(position).getId_cmd());
         startActivity(toCmdDescr);
     }
 
