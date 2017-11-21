@@ -1,6 +1,5 @@
 package com.tb.rita.delivery;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -14,12 +13,9 @@ import android.widget.ListView;
 
 import com.tb.rita.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import domain.Command;
-import domain.dao.AppDatabase;
-import domain.dao.CommandDao;
 import domain.models.CommandListViewModel;
 
 public class CommandsListActivity extends AppCompatActivity {

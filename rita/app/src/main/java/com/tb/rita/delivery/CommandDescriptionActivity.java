@@ -1,7 +1,9 @@
 package com.tb.rita.delivery;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.tb.rita.R;
@@ -19,6 +23,7 @@ import java.util.List;
 
 import domain.Alias;
 import domain.Command;
+import domain.custom.MyDialogBox;
 import domain.models.CommandDescriptionViewModel;
 
 /**
@@ -49,6 +54,14 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         cmdDescrModel.createDb();
         cmdDescrModel.init(id_cmd);
         subscribeData();
+
+        ImageButton btnRun = findViewById(R.id.descr_run);
+        btnRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
     }
 
     private void subscribeData() {
@@ -97,6 +110,25 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     public void OnBackButtonPressed(View view) {
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
+    }
+
+    private void showDialog() {
+        MyDialogBox diagBox = new MyDialogBox();
+        diagBox.setDialogMessage(getString(R.string.confirm_run));
+        diagBox.setBuilder(new AlertDialog.Builder(this));
+        diagBox.getBuilder().setPositiveButton(R.string.button_confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Run cmd
+            }
+        });
+        diagBox.getBuilder().setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Back to activity screen
+            }
+        });
+        diagBox.show(this.getFragmentManager(), "test");
     }
 
     private void onAliasPressed(int alias_id, View view) {

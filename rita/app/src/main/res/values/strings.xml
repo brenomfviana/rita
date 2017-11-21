@@ -33,6 +33,7 @@
     <string name="button_alias">Novo Apelido</string>
     <string name="button_run">Executar</string>
     <string name="button_alias_list">Apelidos</string>
+    <string name="button_cancel">Cancelar</string>
 
     <!-- Menu -->
     <string name="title_activity_commands">Comandos</string>
@@ -47,6 +48,11 @@
 
     <!-- Commands Description -->
     <string name="alias_list_title">Lista de apelidos</string>
+    <string name="confirm_run">Deseja executar o comando </string>
+
+    <!-- New Alias Screen -->
+    <string name="invalid_alias">Apelido inválido!</string>
+    <string name="confirm_edit_text">Deseja alterar o apelido para </string>
 
     <!-- Commands -->
     <string name="command_1">Ligue as luzes</string>
