@@ -49,29 +49,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
-    <Button
+    <ImageButton
         android:id="@+id/lst_add_cmd_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:onClick="onAddButtonPressed"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:background="@null"
         android:text="@string/add_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lst_back_btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/add_button"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/lst_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:onClick="onBackButtonPressed"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:background="@null"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/lst_add_cmd_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/lst_add_cmd_btn"
-        app:layout_constraintTop_toTopOf="@+id/lst_add_cmd_btn" />
+        app:layout_constraintTop_toTopOf="@+id/lst_add_cmd_btn"
+        app:srcCompat="@drawable/back_button"/>
 
     <ImageView
         android:id="@+id/imageView11"
