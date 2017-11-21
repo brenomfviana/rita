@@ -20,15 +20,24 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface AliasDao {
 
-    @Query("SELECT * FROM alias WHERE id_cmd = :id_cmd")
-    LiveData<List<Alias>> getByCmd(int id_cmd);
+    @Query("SELECT * FROM alias WHERE id_cmd = :idCmd")
+    LiveData<List<Alias>> getByCmd(int idCmd);
+
+    @Query("SELECT * FROM alias WHERE id_alias = :idAlias")
+    LiveData<Alias> getById(int idAlias);
 
     @Query("SELECT * FROM alias")
     LiveData<List<Alias>> getAll();
+
+    @Query("UPDATE alias SET name = :newName WHERE id_alias = :idAlias")
+    void updateAux(String newName, int idAlias);
 
     @Insert(onConflict = REPLACE)
     void insertAll(Alias...alias);
 
     @Delete
     void delete(Alias alias);
+
+    @Update
+    void update(Alias alias);
 }

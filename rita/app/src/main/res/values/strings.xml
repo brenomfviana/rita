@@ -43,6 +43,7 @@
 
     <!-- New Commad Screen Strings -->
     <string name="cmd_name">Nome do Comando</string>
+    <string name="alias_name">Nome do Apelido</string>
 
     <!-- Commands Description -->
     <string name="alias_list_title">Lista de apelidos</string>

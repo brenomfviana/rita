@@ -141,15 +141,15 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
         android:onClick="onNewAliasButtonPressed"
+        android:scaleType="fitXY"
         android:text="@string/button_alias"
         app:layout_constraintBottom_toBottomOf="@+id/descr_run"
         app:layout_constraintLeft_toRightOf="@+id/descr_run"
         app:layout_constraintRight_toLeftOf="@+id/descr_back"
         app:layout_constraintTop_toTopOf="@+id/descr_run"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/add_button"/>
+        app:srcCompat="@drawable/add_button" />
 
 </android.support.constraint.ConstraintLayout>

@@ -41,44 +41,17 @@ public class CommandDescriptionViewModel extends AndroidViewModel {
 
     public void init(int cmd_id) {
         getCmd(cmd_id);
-        findByCmd();
+        findByCmd(cmd_id);
     }
 
     private void getCmd(final int id) {
         createDb();
-        Thread worker = new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                command = mDb.commandDao().findCommandById(id);
-            }
-        };
-        worker.start();
-        try {
-            worker.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        command = mDb.commandDao().findCommandById(id);
     }
 
-    private void findByCmd() {
+    private void findByCmd(int id) {
         createDb();
-        if(command.getValue() == null)
-            return;
-        Thread worker = new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                aliases = mDb.aliasDao().getByCmd(command.getValue().getId_cmd());
-            }
-        };
-
-        worker.start();
-        try {
-            worker.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        aliases = mDb.aliasDao().getByCmd(id);
     }
 
 

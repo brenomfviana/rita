@@ -20,8 +20,13 @@ import java.io.Serializable;
 public class Alias implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_alias")
     private int id_alias;
+
+    @ColumnInfo(name = "id_cmd")
     private int id_cmd;
+
+    @ColumnInfo(name = "name")
     private String name;
 
     @ColumnInfo(name = "is_synonym")

@@ -1,5 +1,6 @@
 package domain;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -21,8 +22,13 @@ public class Command implements Serializable {
     public static final int MIN_ALIAS_LENGTH = 1;
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_cmd")
     private int id_cmd;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "appliance")
     private int appliance;
 
     @Ignore

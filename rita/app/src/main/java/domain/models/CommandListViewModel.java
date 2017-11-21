@@ -21,20 +21,7 @@ public class CommandListViewModel extends AndroidViewModel {
     CommandListViewModel(Application application) {
         super(application);
         createDb();
-        commands = new LiveData<List<Command>>() {};
-        Thread worker = new Thread() {
-            @Override
-            public void run() {
-                commands = mDb.commandDao().getAll();
-            }
-        };
-
-        worker.start();
-        try {
-            worker.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        commands = mDb.commandDao().getAll();
     }
 
     public void createDb() {
