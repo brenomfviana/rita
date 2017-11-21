@@ -24,7 +24,7 @@
         <!-- Help Activity -->
         <activity
             android:name=".delivery.HelpActivity"
-            android:label="Help"
+            android:label="Ajuda"
             android:parentActivityName=".delivery.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -34,7 +34,7 @@
         <!-- Command List Activity -->
         <activity
             android:name=".delivery.CommandsListActivity"
-            android:label="Command List"
+            android:label="Lista de Comandos"
             android:parentActivityName=".delivery.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -44,7 +44,7 @@
         <!-- New Command Activity -->
         <activity
             android:name=".delivery.NewCommandActivity"
-            android:label="Add New Command"
+            android:label="Adcionar novo comando"
             android:parentActivityName=".delivery.CommandsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -54,7 +54,7 @@
         <!-- Commands Description Activity -->
         <activity
             android:name=".delivery.CommandDescriptionActivity"
-            android:label="Command Description"
+            android:label="Descrição do comando"
             android:parentActivityName=".delivery.CommandsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".delivery.NewAliasActivity"
-            android:label="New Alias"
+            android:label="Adicionar novo apelido"
             android:parentActivityName=".delivery.CommandDescriptionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
