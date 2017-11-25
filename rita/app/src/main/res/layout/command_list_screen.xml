@@ -13,6 +13,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@null"
+        android:contentDescription="@string/press_to_talk"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -54,32 +55,34 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
-        android:onClick="onAddButtonPressed"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/add_cmd"
+        android:onClick="onAddButtonPressed"
+        android:scaleType="fitXY"
         android:text="@string/add_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lst_back_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/add_button"/>
+        app:srcCompat="@drawable/add_button" />
 
     <ImageButton
         android:id="@+id/lst_back_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:onClick="onBackButtonPressed"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/back_to_home"
+        android:onClick="onBackButtonPressed"
+        android:scaleType="fitXY"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/lst_add_cmd_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/lst_add_cmd_btn"
         app:layout_constraintTop_toTopOf="@+id/lst_add_cmd_btn"
-        app:srcCompat="@drawable/back_button"/>
+        app:srcCompat="@drawable/back_button" />
 
     <ImageView
         android:id="@+id/imageView11"

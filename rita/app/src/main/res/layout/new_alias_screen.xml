@@ -11,13 +11,14 @@
         android:id="@+id/nalias_rita_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:background="@null"
+        android:contentDescription="@string/press_to_talk"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/rita_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp" />
+        app:srcCompat="@drawable/rita_icon" />
 
     <ImageView
         android:id="@+id/nalias_line_sep1"
@@ -82,24 +83,26 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:onClick="onAddButtonPressed"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/add_alias_confirm"
+        android:onClick="onAddButtonPressed"
+        android:scaleType="fitXY"
         android:text="@string/add_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/nalias_back_btn"
         app:layout_constraintTop_toBottomOf="@+id/nalias_alias_input"
-        app:srcCompat="@drawable/check_button"/>
+        app:srcCompat="@drawable/check_button" />
 
     <ImageButton
         android:id="@+id/nalias_back_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:onClick="onBackButtonPressed"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/back_to_cmd_descr"
+        android:onClick="onBackButtonPressed"
+        android:scaleType="fitXY"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/nalias_confirm_btn"
         app:layout_constraintLeft_toRightOf="@+id/nalias_confirm_btn"

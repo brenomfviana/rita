@@ -10,11 +10,10 @@
         android:id="@+id/imageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/press_to_talk"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,10 +23,11 @@
         android:id="@+id/ncmd_back_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:onClick="onAddCmdPressed"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/add_cmd_confirm"
+        android:onClick="onAddCmdPressed"
+        android:scaleType="fitXY"
         android:text="@string/add_button"
         app:layout_constraintBottom_toBottomOf="@+id/ncmd_confirm_btn"
         app:layout_constraintEnd_toStartOf="@+id/ncmd_confirm_btn"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ncmd_confirm_btn"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/check_button"/>
+        app:srcCompat="@drawable/check_button" />
 
     <EditText
         android:id="@+id/ncmd_input_text"
@@ -58,15 +58,16 @@
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/back_to_cmd_descr"
         android:onClick="onBackNAliasPressed"
+        android:scaleType="fitXY"
         android:text="@string/button_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ncmd_back_btn"
-        app:srcCompat="@drawable/back_button"/>
+        app:srcCompat="@drawable/back_button" />
 
     <RadioGroup
         android:id="@+id/ncmd_appliances"

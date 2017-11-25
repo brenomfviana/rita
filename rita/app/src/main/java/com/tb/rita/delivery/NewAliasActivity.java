@@ -111,7 +111,6 @@ public class NewAliasActivity extends AppCompatActivity {
     }
 
     /* Transition functions */
-
     public void onBackButtonPressed(View view) {
         Intent intent = new Intent(this, CommandDescriptionActivity.class);
         intent.putExtra(CommandDescriptionActivity.CMD_ID, cmd_id);
@@ -165,10 +164,5 @@ public class NewAliasActivity extends AppCompatActivity {
         }
 
         return isValid;
-    }
-
-
-    public void setConfirmEdit(boolean value) {
-        this.confirmEdit = value;
     }
 }

@@ -1,8 +1,22 @@
 <resources>
 
+    <!-- Home Screen -->
+    <string name="press_to_talk">Pressione para falar.</string>
+    <string name="go_to_help">Ir para tela de ajuda.</string>
+    <string name="go_to_settings">Abrir configurações.</string>
+    <string name="go_to_cmd_list">Abrir lista de comandos.</string>
+    <string name="back_to_home">Voltar para tela inicial.</string>
+    <string name="back_to_cmd_list">Voltar para tela de lista de comandos.</string>
+    <string name="back_to_cmd_descr">Voltar para tela de descrição do comando.</string>
+    <string name="run_cmd">Executar o comando selecionado.</string>
+    <string name="add_cmd">Adicionar novo comando.</string>
+    <string name="add_new_alias">Adicionar novo apelido.</string>
+    <string name="add_alias_confirm">Confirmar e voltar para descrição do comando.</string>
+    <string name="new_cmd_input">Digite um nome para o comando.</string>
+    <string name="add_cmd_confirm">Confirmar e voltar para lista de comandos.</string>
+    <string name="run_cmd_popup">Deseja executar o comando </string>
 
     <!-- Main strings -->
-
     <string name="app_name">RITA</string>
     <string name="welcome">
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
@@ -69,8 +83,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Strings related to Main -->
-
-    <string name="press_to_talk">Pressione para falar</string>
 
     <!-- Strings related to Settings -->
 

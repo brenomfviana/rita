@@ -113,8 +113,9 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
+        String cmdName = cmdDescrModel.command.getValue().getName();
         MyDialogBox diagBox = new MyDialogBox();
-        diagBox.setDialogMessage(getString(R.string.confirm_run));
+        diagBox.setDialogMessage(getString(R.string.run_cmd_popup) + " " + cmdName);
         diagBox.setBuilder(new AlertDialog.Builder(this));
         diagBox.getBuilder().setPositiveButton(R.string.button_confirm, new DialogInterface.OnClickListener() {
             @Override

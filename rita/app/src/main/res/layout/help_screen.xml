@@ -11,6 +11,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/press_to_talk"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -81,13 +82,14 @@
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:background="@null"
+        android:contentDescription="@string/back_to_home"
         android:onClick="OnBackPressed"
+        android:scaleType="fitXY"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/back_button"/>
+        app:srcCompat="@drawable/back_button" />
 
 </android.support.constraint.ConstraintLayout>

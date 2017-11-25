@@ -43,7 +43,6 @@ public class NewCommandActivity extends AppCompatActivity {
             }
         };
 
-
         try {
             thread.start();
             thread.join();
