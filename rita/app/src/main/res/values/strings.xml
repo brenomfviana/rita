@@ -16,6 +16,11 @@
     <string name="add_cmd_confirm">Confirmar e voltar para lista de comandos.</string>
     <string name="run_cmd_popup">Deseja executar o comando </string>
 
+
+    <!-- Description String -->
+    <string name="speech_prompt_title">Diga algo</string>
+    <string name="unsuportted_speech">Seu dispositivo não suporta reconhecimento de Voz</string>
+
     <!-- Main strings -->
     <string name="app_name">RITA</string>
     <string name="welcome">
