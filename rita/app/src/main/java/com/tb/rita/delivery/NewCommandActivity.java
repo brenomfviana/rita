@@ -15,6 +15,7 @@ import com.tb.rita.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.Alias;
 import domain.Appliance;
 import domain.Command;
 import domain.dao.AppDatabase;
@@ -112,9 +113,9 @@ public class NewCommandActivity extends AppCompatActivity {
             isValid = false;
         } else if(cmd.getName() == null) {
             isValid = false;
-        } else if(cmd.getName().length() < 2) {
+        } else if(cmd.getName().length() < Command.MIN_CMD_LENGTH) {
             isValid = false;
-        } else if(cmd.getName().length() > 15) {
+        } else if(cmd.getName().length() > Command.MAX_CMD_LENGTH) {
             isValid = false;
         } else if(isValid) {
             String aux = cmd.getName().trim().toUpperCase();
@@ -125,10 +126,12 @@ public class NewCommandActivity extends AppCompatActivity {
                     isValid = false;
                     break;
                 }
-                // Checks if there is another cmd connected to the same appliance
-                if(cmd_.getAppliance() == cmd.getAppliance()) {
-                    isValid = false;
-                    break;
+                // Checks if there is an alias with the same name
+                for(Alias alias : cmd.getAliases()) {
+                    if(alias.getName().compareToIgnoreCase(aux) == 0) {
+                        isValid = false;
+                        break;
+                    }
                 }
             }
         }

@@ -99,7 +99,6 @@ public class NewAliasActivity extends AppCompatActivity {
         confirmEdit.setBuilder(new AlertDialog.Builder(this));
         confirmEdit.getBuilder().setPositiveButton(R.string.button_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-//                setConfirmEdit(true);
                 goToDescr(alias);
             }
         });
@@ -157,9 +156,9 @@ public class NewAliasActivity extends AppCompatActivity {
         boolean isValid = true;
         if(alias == null) {
             isValid = false;
-        } else if(alias.length() < Command.MIN_ALIAS_LENGTH) {
+        } else if(alias.length() < Alias.MIN_ALIAS_LENGTH) {
             isValid = false;
-        } else if(alias.length() > Command.MAX_ALIAS_LENGTH) {
+        } else if(alias.length() > Alias.MAX_ALIAS_LENGTH) {
             isValid = false;
         }
 

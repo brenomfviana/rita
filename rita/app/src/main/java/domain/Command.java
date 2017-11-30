@@ -17,8 +17,8 @@ import java.util.List;
         indices = {@Index(value = "name", unique = true)})
 public class Command implements Serializable {
 
-    public static final int MAX_ALIAS_LENGTH = 15;
-    public static final int MIN_ALIAS_LENGTH = 1;
+    public static final int MAX_CMD_LENGTH = 20;
+    public static final int MIN_CMD_LENGTH = 5;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_cmd")

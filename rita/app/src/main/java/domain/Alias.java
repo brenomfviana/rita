@@ -19,6 +19,9 @@ import java.io.Serializable;
         indices = {@Index(value = "name", unique = true)})
 public class Alias implements Serializable {
 
+    public static final int MAX_ALIAS_LENGTH = 20;
+    public static final int MIN_ALIAS_LENGTH = 4;
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_alias")
     private int id_alias;
