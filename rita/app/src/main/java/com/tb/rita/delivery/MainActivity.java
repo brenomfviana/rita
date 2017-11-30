@@ -1,5 +1,7 @@
 package com.tb.rita.delivery;
 
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import domain.Command;
+import domain.CommandGrammar;
 
 /**
  * This class is responsible by the main activity.
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton tapToTalk;
     TextView speechTextView;
+    BluetoothDevice remoteDevice;
+    BluetoothSocket bluetoothSocket;
 
     private final int REQUEST_SPEECH_RECOG = 1;
 
@@ -77,7 +82,12 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_SPEECH_RECOG: {
                 if(resultCode == RESULT_OK) {
                     ArrayList<String> mySpeech = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    speechTextView.setText(mySpeech.get(0));
+                    if(mySpeech != null) {
+                        CommandGrammar cmdGram = new CommandGrammar(mySpeech.get(0), this);
+
+                        speechTextView.setText(mySpeech.get(0));
+                        Toast.makeText(this, cmdGram.getCmd(), Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
             }

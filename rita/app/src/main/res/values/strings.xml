@@ -79,17 +79,31 @@
     <string name="apelidos">Apelidos</string>
 
     <!-- Settings -->
-
     <string name="calibration">Calibração</string>
 
     <!-- Others -->
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- Strings related to Main -->
+    <!-- Grammar Strings -->
+    <string-array name="cmd_prefix">
+        <item>LIGAR</item>
+    </string-array>
 
-    <!-- Strings related to Settings -->
+    <string-array name="cmd_appliance">
+        <item>TV</item>
+        <item>VENTILADOR</item>
+        <item>LUZ</item>
+    </string-array>
+
+    <string-array name="appliance_sufix">
+        <item>CH 1</item>
+        <item>CH 2</item>
+        <item>CH 3</item>
+        <item>CH 4</item>
+        <item>CH 5</item>
+        <item>CH 6</item>
+    </string-array>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

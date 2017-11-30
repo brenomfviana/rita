@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.tb.rita.R;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -44,16 +46,12 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private ListView alias_list;
     private int id_cmd;
     private CommandDescriptionViewModel cmdDescrModel;
-    private BluetoothDevice connectedDevice;
-    private BluetoothSocket bluetoothSocket;
-    private boolean connected = false;
-    private UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     public static final String CMD_ID = "ID OF THE SELECTED COMMAND";
     public static final String ALIAS_ID = "ID OF THE SELECTED ALIAS";
     private final int REQUEST_BLUETOOTH_ON = 1;
     private final int REQUEST_BLUETOOTH_CONNECTION = 2;
 
-    private boolean bluetoothOn = false;
+    private BluetoothService btService;
 
 
     @Override
@@ -74,7 +72,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         btnRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                checkBluetooth();
             }
         });
     }
@@ -102,6 +100,10 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     public void OnBackButtonPressed(View view) {
+        if(btService != null) {
+            btService.close();
+        }
+        
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
     }
@@ -158,31 +160,19 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         diagBox.show(this.getFragmentManager(), "test");
     }
 
-    private boolean checkBluetooth() {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        bluetoothOn = bluetoothAdapter.isEnabled();
-        if(bluetoothAdapter == null) {
-            Toast.makeText(this, "Sem adaptador bluetooth no dispositivo",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        } else if(!bluetoothAdapter.isEnabled()) {
-            Intent ativaBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(ativaBluetooth, REQUEST_BLUETOOTH_ON);
-        } else if(bluetoothAdapter.isEnabled()) {
-            if(connected) {
-                try {
-                    bluetoothSocket.close();
-                    connected = false;
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "Erro ao fechar conexão", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-            } else {
-                Intent conectaDispositvo = new Intent(this, ListBluetoothDevices.class);
-                startActivityForResult(conectaDispositvo, REQUEST_BLUETOOTH_CONNECTION);
-            }
+    private void checkBluetooth() {
+        btService = new BluetoothService(this);
+        if(!btService.isBluetoothEnabled()) {
+            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBluetooth, REQUEST_BLUETOOTH_ON);
+        } else {
+            // Bluetooth já está ativado
+            beginConnection();
         }
-        return true;
+    }
+
+    private void beginConnection() {
+        btService.connect();
     }
 
     @Override
@@ -190,7 +180,8 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_BLUETOOTH_ON: {
                 if(resultCode == RESULT_OK) {
-                    Toast.makeText(getApplicationContext(), "Bluetooh ativado com sucesso!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Bluetooh ativado com sucesso!", Toast.LENGTH_LONG).show();
+                    beginConnection();
                 } else {
                     Toast.makeText(getApplicationContext(), "Não foi possível ativar o bluetooth", Toast.LENGTH_LONG).show();
                 }
@@ -201,26 +192,12 @@ public class CommandDescriptionActivity extends AppCompatActivity {
                     String mac = data.getStringExtra(ListBluetoothDevices.MAC_ADRESS);
                     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                     BluetoothDevice remoteDevice = bluetoothAdapter.getRemoteDevice(mac);
-
-                    try {
-                        bluetoothSocket = remoteDevice.createRfcommSocketToServiceRecord(myUUID);
-                        bluetoothSocket.connect();
-                        connected = true;
-                        Toast.makeText(getApplicationContext(), "Conexão realizada!", Toast.LENGTH_LONG).show();
-                    } catch (IOException e)  {
-                        connected = false;
-                        Toast.makeText(getApplicationContext(), "Falha ao conectar", Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
-                    }
                 } else {
-                    connected = false;
                     Toast.makeText(getApplicationContext(), "Falha ao obter MAC", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
             default: {
-                bluetoothOn = false;
-                connected = false;
                 Toast.makeText(this, "ERROR", Toast.LENGTH_LONG);
             }
         }
