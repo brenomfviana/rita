@@ -1,15 +1,14 @@
 package com.tb.rita.delivery;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,14 +21,14 @@ public class BluetoothService {
     private final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private final String centralMac = "20:15:11:30:32:41";
     private Context context;
+    private String msg;
+
     private BluetoothDevice centralBt;
     private BluetoothAdapter btAdapter;
     private BluetoothSocket btSocket;
 
     private ConnectThread connectThread;
-
-    // Requests
-    private final int REQUEST_ENABLE = 1;
+    private ConnectedDevice connectedDevice;
 
     public BluetoothService(Context context) {
         this.context = context;
@@ -37,7 +36,7 @@ public class BluetoothService {
 
     /**
      *  Checks if the phone has a bluetooth adapter
-     * @return
+     * @return True if the device has support
      */
     private boolean hasBluetoothSupport() {
         boolean hasSupport;
@@ -51,7 +50,7 @@ public class BluetoothService {
 
     /**
      *  CHecks if the blueetooth adapter is enabled, otherwise request a connection
-     * @return
+     * @return true if the bluetooth is enabled
      */
     public boolean isBluetoothEnabled() {
         return hasBluetoothSupport() && btAdapter.isEnabled();
@@ -88,14 +87,30 @@ public class BluetoothService {
         return true;
     }
 
+    public boolean connectAndSend(String msg) {
+        if(msg != null) {
+            this.msg = msg;
+            connect();
+        }
+        return true;
+    }
+
     public void close() {
         try {
             if(btSocket != null)
                 btSocket.close();
+            if(connectThread != null)
+                connectThread.cancel();
         } catch (IOException e) {
             Toast.makeText(context, "FAILED TO CLOSE CONNECTION", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    private void manageConn(BluetoothSocket socket) {
+        connectedDevice = new ConnectedDevice(socket);
+        connectedDevice.write(msg);
+        connectedDevice.start();
     }
 
 
@@ -113,6 +128,7 @@ public class BluetoothService {
             }
 
             btSocket = tmp;
+            manageConn(btSocket);
         }
 
         @Override
@@ -122,7 +138,6 @@ public class BluetoothService {
             try {
                 btSocket.connect();
             } catch (IOException e) {
-                Toast.makeText(context, "FAILED TO CONNECT TO CENTRAL", Toast.LENGTH_LONG).show();
                 try {
                     btSocket.close();
                 } catch (IOException e1) {
@@ -130,8 +145,9 @@ public class BluetoothService {
                 }
                 e.printStackTrace();
             }
-//            Toast.makeText(context, "CONNECTED TO CENTRAL", Toast.LENGTH_LONG).show();
+            manageConn(btSocket);
         }
+
 
         public void cancel() {
             try {
@@ -139,6 +155,38 @@ public class BluetoothService {
             } catch (IOException e) {
                 Toast.makeText(context, "FAILED TO CLOSE CONNECTION", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private class ConnectedDevice extends Thread {
+
+        private BluetoothSocket connSocket;
+        private OutputStream outStream;
+
+        public ConnectedDevice(BluetoothSocket socket) {
+            connSocket = socket;
+            OutputStream tmp = null;
+            try {
+                tmp = connSocket.getOutputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            outStream = tmp;
+        }
+
+        public void write(byte[] msg) {
+            try {
+                outStream.write(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void write(String msg) {
+            if(msg != null) {
+                byte[] bytesMsg = msg.getBytes();
+                write(bytesMsg);
             }
         }
     }

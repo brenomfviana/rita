@@ -1,23 +1,25 @@
 package domain;
 
+import com.tb.rita.R;
+
 /**
  * Created by thales on 04/11/17.
  */
 
 public enum Appliance {
     FAN,
-    HEATER,
+    LIGHT,
     TV;
 
     @Override
     public String toString() {
         String str = "";
         if(this == FAN) {
-            str = "FAN";
-        } else if(this == HEATER) {
-            str = "HEATER";
+            str = "VENTILADOR";
+        } else if(this == LIGHT) {
+            str = "LUZ";
         } else if(this == TV) {
-            str = "TV";
+            str = "TELEVISAO";
         }
         return str;
     }

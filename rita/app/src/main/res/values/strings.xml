@@ -91,7 +91,7 @@
     </string-array>
 
     <string-array name="cmd_appliance">
-        <item>TV</item>
+        <item>TELEVISAO</item>
         <item>VENTILADOR</item>
         <item>LUZ</item>
     </string-array>

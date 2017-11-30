@@ -103,7 +103,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         if(btService != null) {
             btService.close();
         }
-        
+
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
     }
@@ -172,7 +172,15 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     private void beginConnection() {
-        btService.connect();
+        String msg = "";
+        if(cmdDescrModel != null && cmdDescrModel.command != null) {
+            if(cmdDescrModel.command.getValue().getName().compareToIgnoreCase("LIGA_VENT") == 0) {
+                msg = "TURN_ON_FAN";
+            } else if(cmdDescrModel.command.getValue().getName().compareToIgnoreCase("DESLIGA_VENT") == 0) {
+                msg = "TURN_OFF_FAN";
+            }
+        }
+        btService.connectAndSend(msg);
     }
 
     @Override
