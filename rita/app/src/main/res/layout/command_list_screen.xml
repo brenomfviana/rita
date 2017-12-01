@@ -50,33 +50,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
-    <ImageButton
+    <Button
         android:id="@+id/lst_add_cmd_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
-        android:background="@null"
+        android:background="@drawable/default_btn"
         android:contentDescription="@string/add_cmd"
         android:onClick="onAddButtonPressed"
         android:scaleType="fitXY"
         android:text="@string/add_button"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lst_back_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/add_button" />
 
-    <ImageButton
+    <Button
         android:id="@+id/lst_back_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:adjustViewBounds="true"
-        android:background="@null"
+        android:background="@drawable/default_btn"
         android:contentDescription="@string/back_to_home"
         android:onClick="onBackButtonPressed"
         android:scaleType="fitXY"
         android:text="@string/back_button"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/lst_add_cmd_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

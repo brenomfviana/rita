@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,17 +23,17 @@
         android:id="@+id/nalias_line_sep1"
         android:layout_width="0dp"
         android:layout_height="3dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nalias_rita_icon"
-        app:srcCompat="@drawable/linesep"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:srcCompat="@drawable/linesep" />
 
     <TextView
         android:id="@+id/nalias_cmd_name"
@@ -50,17 +49,17 @@
         android:id="@+id/nalias_line_sep2"
         android:layout_width="0dp"
         android:layout_height="3dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nalias_cmd_name"
-        app:srcCompat="@drawable/linesep"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:srcCompat="@drawable/linesep" />
 
     <EditText
         android:id="@+id/nalias_alias_input"
@@ -78,35 +77,35 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nalias_line_sep2" />
 
-    <ImageButton
+    <Button
         android:id="@+id/nalias_confirm_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
-        android:background="@null"
+        android:background="@drawable/default_btn"
         android:contentDescription="@string/add_alias_confirm"
         android:onClick="onAddButtonPressed"
-        android:scaleType="fitXY"
-        android:text="@string/add_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/nalias_back_btn"
-        app:layout_constraintTop_toBottomOf="@+id/nalias_alias_input"
-        app:srcCompat="@drawable/check_button" />
+        android:text="@string/button_confirm"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/nalias_back_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nalias_alias_input" />
 
-    <ImageButton
+    <Button
         android:id="@+id/nalias_back_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:adjustViewBounds="true"
-        android:background="@null"
+        android:background="@drawable/default_btn"
         android:contentDescription="@string/back_to_cmd_descr"
         android:onClick="onBackButtonPressed"
-        android:scaleType="fitXY"
         android:text="@string/back_button"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/nalias_confirm_btn"
-        app:layout_constraintLeft_toRightOf="@+id/nalias_confirm_btn"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nalias_confirm_btn"
-        app:srcCompat="@drawable/back_button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/nalias_confirm_btn"
+        app:layout_constraintTop_toTopOf="@+id/nalias_confirm_btn" />
 </android.support.constraint.ConstraintLayout>

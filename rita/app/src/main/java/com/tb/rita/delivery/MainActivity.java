@@ -83,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK) {
                     ArrayList<String> mySpeech = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     if(mySpeech != null) {
-                        CommandGrammar cmdGram = new CommandGrammar(mySpeech.get(0), this);
+//                        CommandGrammar cmdGram = new CommandGrammar(mySpeech.get(0), this);
 
                         speechTextView.setText(mySpeech.get(0));
-                        Toast.makeText(this, cmdGram.getCmd(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(this, cmdGram.getCmd(), Toast.LENGTH_LONG).show();
                     }
                 }
                 break;

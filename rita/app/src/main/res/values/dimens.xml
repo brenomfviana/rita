@@ -6,4 +6,5 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="scrollbar_size">2dp</dimen>
+    <dimen name="button_height">64px</dimen>
 </resources>

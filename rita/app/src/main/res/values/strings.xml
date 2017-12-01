@@ -29,20 +29,11 @@
     </string>
 
     <string name="help_string">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit.
-        Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada
+        Este aplicativo está sendo desenvolvido como um projeto para as Disciplinas de Sistemas
+        Embarcados e Interação Humano Computador, oferecidas pelo Departamento de Informática e
+        Matemática Aplicada, na Universidade Federal do Rio Grande do Norte. O objetivo deste
+        aplicativo é gerenciar o controle de algumas atividades domésticas, como ligar um ventilador,
+        para pessoas com problemas de visão.
     </string>
 
     <!-- Buttons -->
@@ -53,6 +44,9 @@
     <string name="button_run">Executar</string>
     <string name="button_alias_list">Apelidos</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="button_cmd">Comandos</string>
+    <string name="button_config">Ajustes</string>
+    <string name="button_help">Ajuda</string>
 
     <!-- Menu -->
     <string name="title_activity_commands">Comandos</string>

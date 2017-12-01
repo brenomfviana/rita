@@ -31,8 +31,11 @@ import java.util.Set;
 import java.util.UUID;
 
 import domain.Alias;
+import domain.Appliance;
 import domain.Command;
+import domain.CommandGrammar;
 import domain.custom.MyDialogBox;
+import domain.dao.AppDatabase;
 import domain.models.CommandDescriptionViewModel;
 
 /**
@@ -50,6 +53,8 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     public static final String ALIAS_ID = "ID OF THE SELECTED ALIAS";
     private final int REQUEST_BLUETOOTH_ON = 1;
     private final int REQUEST_BLUETOOTH_CONNECTION = 2;
+
+    private List<Command> myCmds;
 
     private BluetoothService btService;
 
@@ -174,11 +179,23 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     private void beginConnection() {
         String msg = "";
         if(cmdDescrModel != null && cmdDescrModel.command != null) {
-            if(cmdDescrModel.command.getValue().getName().compareToIgnoreCase("LIGA_VENT") == 0) {
-                msg = "TURN_ON_FAN";
-            } else if(cmdDescrModel.command.getValue().getName().compareToIgnoreCase("DESLIGA_VENT") == 0) {
-                msg = "TURN_OFF_FAN";
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+                    myCmds = db.commandDao().getAll().getValue();
+                }
+            };
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            CommandGrammar gram = new CommandGrammar(myCmds);
+            msg = gram.getValidCmdFromText(cmdDescrModel.command.getValue());
+//            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
         btService.connectAndSend(msg);
     }
