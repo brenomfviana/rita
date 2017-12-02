@@ -105,10 +105,6 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     }
 
     public void OnBackButtonPressed(View view) {
-        if(btService != null) {
-            btService.close();
-        }
-
         Intent toCmdList = new Intent(this, CommandsListActivity.class);
         startActivity(toCmdList);
     }
@@ -195,7 +191,6 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
             CommandGrammar gram = new CommandGrammar(myCmds);
             msg = gram.getValidCmdFromText(cmdDescrModel.command.getValue());
-//            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
         btService.connectAndSend(msg);
     }

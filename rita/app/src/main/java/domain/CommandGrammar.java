@@ -41,8 +41,9 @@ public class CommandGrammar {
     private List<String> prefix;
     private List<String> appliance;
     private List<String> sufix;
-    private Map<String, List<String>> prefixAppliance; // LIGAR -> TV
-    private Map<String, String> applianceSufix; // TV -> CH 6
+    private Map<String, String> prefixMap; // LIGAR -> TV
+    private Map<String, String> applianceMap; // TV -> CH 6
+    private Map<String, String> sufixMap; // TV -> CH 6
 
     public CommandGrammar(List<Command> commands) {
         if(commands != null)
@@ -52,6 +53,9 @@ public class CommandGrammar {
         prefix = new ArrayList<>();
         appliance = new ArrayList<>();
         sufix = new ArrayList<>();
+        prefixMap = new HashMap<>();
+        applianceMap = new HashMap<>();
+        sufixMap = new HashMap<>();
         populateLists();
     }
 
@@ -62,6 +66,16 @@ public class CommandGrammar {
     }
 
     private void populatePrefix() {
+        String on = "LIGAR";
+        prefixMap.put("LIGAR", on);
+        prefixMap.put("ATIVAR", on);
+        prefixMap.put("ACENDER", on);
+        prefixMap.put("ACIONAR", on);
+        String off = "DESLIGAR";
+        prefixMap.put("DESLIGAR", off);
+        prefixMap.put("DESATIVAR", off);
+        prefixMap.put("APAGAR", off);
+
         prefix.add("LIGAR");
         prefix.add("DESLIGAR");
         prefix.add("ATIVAR");
@@ -69,12 +83,42 @@ public class CommandGrammar {
     }
 
     private void populateAppliance() {
+        // Ventilador
+        applianceMap.put("VENTILADOR", Appliance.FAN.toString());
+        applianceMap.put("VENTOINHA", Appliance.FAN.toString());
+        // Luz
+        applianceMap.put("LUZ", Appliance.LIGHT.toString());
+        applianceMap.put("LUZES", Appliance.LIGHT.toString());
+        applianceMap.put("LÂMPADA", Appliance.LIGHT.toString());
+        applianceMap.put("LAMPADA", Appliance.LIGHT.toString());
+        // Televisão
+        applianceMap.put("TV", Appliance.TV.toString());
+        applianceMap.put("TELEVISÃO", Appliance.TV.toString());
+        applianceMap.put("TELEVISAO", Appliance.TV.toString());
+        applianceMap.put("TELEVISIVO", Appliance.TV.toString());
+
         appliance.add(Appliance.FAN.toString());
         appliance.add(Appliance.LIGHT.toString());
         appliance.add(Appliance.TV.toString());
     }
 
     private void populateSufix() {
+        sufixMap.put("CANAL", "C");
+        sufixMap.put("UM", "1");
+        sufixMap.put("DOIS", "2");
+        sufixMap.put("TRES", "3");
+        sufixMap.put("TRÊS", "3");
+        sufixMap.put("QUATRO", "4");
+        sufixMap.put("CINCO", "5");
+        sufixMap.put("1", "1");
+        sufixMap.put("2", "2");
+        sufixMap.put("3", "3");
+        sufixMap.put("4", "4");
+        sufixMap.put("5", "5");
+        sufixMap.put("6", "6");
+
+
+
         sufix.add("C1");
         sufix.add("C2");
         sufix.add("C3");
@@ -110,24 +154,16 @@ public class CommandGrammar {
         String[] text = text_.trim().toUpperCase().split(" ");
         if(text != null) {
             for(int i=0; i<text.length; i++){
-                for(String pref : prefix) {
-                    if(text[i].compareToIgnoreCase(pref) == 0){
-                        validCmd.append(pref);
-                        break;
-                    }
-                }
-
-                for(String appl : appliance) {
-                    if(text[i].compareToIgnoreCase(appl) == 0) {
-                        validCmd.append("_" + appl);
-                        break;
-                    }
-                }
-
-                for(String suf : sufix) {
-                    if(text[i].compareToIgnoreCase(suf) == 0) {
-                        validCmd.append("_" + suf);
-                        break;
+                if(prefixMap.containsKey(text[i])){
+                    validCmd.append(prefixMap.get(text[i]));
+                } else if(applianceMap.containsKey(text[i])) {
+                    validCmd.append("_" + applianceMap.get(text[i]));
+                } else if(sufixMap.containsKey(text[i])) {
+                    String value = sufixMap.get(text[i]);
+                    if(value.compareToIgnoreCase("C") != 0) {
+                        validCmd.append(value);
+                    } else {
+                        validCmd.append("_" + value);
                     }
                 }
             }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class BluetoothService {
     private final String centralMac = "20:15:11:30:32:41";
     private Context context;
     private String msg;
+    private boolean success;
 
     private BluetoothDevice centralBt;
     private BluetoothAdapter btAdapter;
@@ -83,6 +85,17 @@ public class BluetoothService {
             centralBt = btAdapter.getRemoteDevice(centralMac);
             connectThread = new ConnectThread(centralBt);
             connectThread.start();
+            try {
+                connectThread.join();
+                if(success) {
+                    connectedDevice = new ConnectedDevice(btSocket);
+                    connectedDevice.setMessage(msg);
+                    connectedDevice.start();
+                    connectedDevice.join();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
@@ -107,77 +120,90 @@ public class BluetoothService {
         }
     }
 
-    private void manageConn(BluetoothSocket socket) {
-        connectedDevice = new ConnectedDevice(socket);
-        connectedDevice.write(msg);
-        connectedDevice.start();
-    }
-
-
+    // ============================== Connection thread
     private class ConnectThread extends Thread {
 
         public ConnectThread(BluetoothDevice device) {
             BluetoothSocket tmp = null;
             centralBt = device;
-
             try {
                 tmp = device.createInsecureRfcommSocketToServiceRecord(myUUID);
             } catch (IOException e) {
                 Toast.makeText(context, "FAILED TO CREATE SOCKET", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-
             btSocket = tmp;
-            manageConn(btSocket);
         }
 
         @Override
         public void run() {
             btAdapter.cancelDiscovery();
-
             try {
                 btSocket.connect();
+                success = true;
+                Log.d("BLUETOOTH", "CONEECTION SUCCESS!");
             } catch (IOException e) {
-                try {
-                    btSocket.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                success = false;
+                Log.d("BLUETOOTH", "CONEECTION FAILED!");
                 e.printStackTrace();
             }
-            manageConn(btSocket);
         }
-
 
         public void cancel() {
             try {
                 btSocket.close();
             } catch (IOException e) {
-                Toast.makeText(context, "FAILED TO CLOSE CONNECTION", Toast.LENGTH_LONG).show();
+                Log.d("BLUETOOTH", "FAILED TO CLOSE SOCKET!");
                 e.printStackTrace();
+            } finally {
+                success = false;
             }
         }
     }
 
+    // ============================== Courrier thread
     private class ConnectedDevice extends Thread {
 
         private BluetoothSocket connSocket;
         private OutputStream outStream;
+        private String message;
 
         public ConnectedDevice(BluetoothSocket socket) {
             connSocket = socket;
             OutputStream tmp = null;
             try {
                 tmp = connSocket.getOutputStream();
+                Log.d("BLUETOOTH", "RETRIEVED OUTPUTSTREAM!");
             } catch (IOException e) {
+                Log.d("BLUETOOTH", "FAILED TO RETRIEVE OUTPUTSTREAM!");
                 e.printStackTrace();
             }
             outStream = tmp;
         }
 
+        @Override
+        public void run() {
+            try {
+                Log.d("BLUETOOTH", "WRITING: " + msg.toString());
+                outStream.write(message.getBytes());
+                Log.d("BLUETOOTH", "MESSAGE SENT, CLOSING SOCKET!");
+                sleep(500);
+                btSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+        }
+
         public void write(byte[] msg) {
             try {
-                outStream.write(msg);
+                if(outStream != null) {
+                    Log.d("BLUETOOTH", "WRITING: " + msg.toString());
+                    outStream.write(msg);
+                    Log.d("BLUETOOTH", "MESSAGE SENT, CLOSING SOCKET!");
+                    btSocket.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -188,6 +214,10 @@ public class BluetoothService {
                 byte[] bytesMsg = msg.getBytes();
                 write(bytesMsg);
             }
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
         }
     }
 
