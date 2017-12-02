@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton tapToTalk;
     TextView speechTextView;
     BluetoothService btService;
-    TextToSpeech speacher;
 
     private final int REQUEST_SPEECH_RECOG = 1;
     private final int REQUEST_BLUETOOTH_ON = 2;
