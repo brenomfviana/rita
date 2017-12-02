@@ -35,8 +35,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ncmd_confirm_btn"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/check_button" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/ncmd_input_text"
@@ -68,8 +67,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ncmd_back_btn"
-        app:srcCompat="@drawable/back_button" />
+        app:layout_constraintStart_toEndOf="@+id/ncmd_back_btn"/>
 
     <RadioGroup
         android:id="@+id/ncmd_appliances"

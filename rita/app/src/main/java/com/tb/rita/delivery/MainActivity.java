@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         List<Command> cmds = new ArrayList<>();
         CommandGrammar cmdGrammar = new CommandGrammar(cmds);
         String cmd = cmdGrammar.getValidCmdFromText(text);
-//        Toast.makeText(this, cmd, Toast.LENGTH_LONG).show();
         btService.connectAndSend(cmd);
     }
 

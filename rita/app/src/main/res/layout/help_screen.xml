@@ -81,7 +81,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_sep1"
-        app:srcCompat="@drawable/back_button" />
+        app:layout_constraintTop_toBottomOf="@+id/line_sep1"/>
 
 </android.support.constraint.ConstraintLayout>

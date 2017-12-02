@@ -49,8 +49,7 @@
         app:layout_constraintEnd_toEndOf="@+id/settings"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/settings"
-        app:layout_constraintTop_toBottomOf="@+id/speech_text_view"
-        app:srcCompat="@drawable/cmd_button" />
+        app:layout_constraintTop_toBottomOf="@+id/speech_text_view" />
 
     <Button
         android:id="@+id/settings"
@@ -66,8 +65,7 @@
         app:layout_constraintEnd_toEndOf="@+id/help"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/help"
-        app:layout_constraintTop_toBottomOf="@+id/cmd_list"
-        app:srcCompat="@drawable/settings_button" />
+        app:layout_constraintTop_toBottomOf="@+id/cmd_list" />
 
     <Button
         android:id="@+id/help"
@@ -85,7 +83,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings"
-        app:srcCompat="@drawable/help_button" />
+        app:layout_constraintTop_toBottomOf="@+id/settings"/>
 
 </android.support.constraint.ConstraintLayout>
