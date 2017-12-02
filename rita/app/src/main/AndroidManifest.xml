@@ -25,12 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".delivery.ListBluetoothDevices"
-            android:label="Dispositivos pareados"
-            android:theme="@android:style/Theme.Dialog">
-        </activity>
-
         <!-- Help Activity -->
         <activity
             android:name=".delivery.HelpActivity"

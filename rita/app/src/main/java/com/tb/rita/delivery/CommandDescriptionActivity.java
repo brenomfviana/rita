@@ -52,7 +52,6 @@ public class CommandDescriptionActivity extends AppCompatActivity {
     public static final String CMD_ID = "ID OF THE SELECTED COMMAND";
     public static final String ALIAS_ID = "ID OF THE SELECTED ALIAS";
     private final int REQUEST_BLUETOOTH_ON = 1;
-    private final int REQUEST_BLUETOOTH_CONNECTION = 2;
 
     private List<Command> myCmds;
 
@@ -204,16 +203,6 @@ public class CommandDescriptionActivity extends AppCompatActivity {
                     beginConnection();
                 } else {
                     Toast.makeText(getApplicationContext(), "Não foi possível ativar o bluetooth", Toast.LENGTH_LONG).show();
-                }
-                break;
-            }
-            case REQUEST_BLUETOOTH_CONNECTION: {
-                if(resultCode == RESULT_OK) {
-                    String mac = data.getStringExtra(ListBluetoothDevices.MAC_ADRESS);
-                    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                    BluetoothDevice remoteDevice = bluetoothAdapter.getRemoteDevice(mac);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Falha ao obter MAC", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
