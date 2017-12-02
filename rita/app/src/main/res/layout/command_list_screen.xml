@@ -8,13 +8,13 @@
     tools:context="com.tb.rita.delivery.CommandsListActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/lst_tap_talk"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@null"
         android:contentDescription="@string/press_to_talk"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/lst_tap_talk"
         app:srcCompat="@drawable/linesep" />
 
     <ListView
