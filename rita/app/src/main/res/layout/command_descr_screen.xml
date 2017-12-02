@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/descr_rita_icon"
+        android:id="@+id/descr_tap_talk"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginLeft="16dp"
@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:background="@null"
         android:contentDescription="@string/press_to_talk"
-        android:scaleType="fitStart"
+        android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descr_rita_icon"
+        app:layout_constraintTop_toBottomOf="@+id/descr_tap_talk"
         app:srcCompat="@drawable/linesep" />
 
     <TextView

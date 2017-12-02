@@ -6,9 +6,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,16 +49,16 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
 
     // Views
-    private ListView alias_list;
-    private int id_cmd;
-    private CommandDescriptionViewModel cmdDescrModel;
     public static final String CMD_ID = "ID OF THE SELECTED COMMAND";
     public static final String ALIAS_ID = "ID OF THE SELECTED ALIAS";
+    private int id_cmd;
+    private final int REQUEST_SPEECH_RECOG = 2;
     private final int REQUEST_BLUETOOTH_ON = 1;
-
-    private List<Command> myCmds;
-
+    private CommandDescriptionViewModel cmdDescrModel;
+    private ImageButton tapToTalk;
     private BluetoothService btService;
+    private List<Command> myCmds;
+    private ListView alias_list;
 
 
     @Override
@@ -67,6 +70,15 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         id_cmd = intent.getIntExtra(CMD_ID, -1);
         alias_list = findViewById(R.id.descr_alias_list);
 
+        tapToTalk = findViewById(R.id.descr_tap_talk);
+
+        tapToTalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onTapToTalk(view);
+            }
+        });
+
         cmdDescrModel = ViewModelProviders.of(this).get(CommandDescriptionViewModel.class);
         cmdDescrModel.createDb();
         cmdDescrModel.init(id_cmd);
@@ -76,7 +88,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         btnRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkBluetooth();
+                checkBluetooth(cmdDescrModel.command.getValue().getName());
             }
         });
     }
@@ -138,37 +150,38 @@ public class CommandDescriptionActivity extends AppCompatActivity {
         cmdNameView.setText(cmd.getName());
     }
 
-    private void showDialog() {
-        String cmdName = cmdDescrModel.command.getValue().getName();
-        MyDialogBox diagBox = new MyDialogBox();
-        diagBox.setDialogMessage(getString(R.string.run_cmd_popup) + " " + cmdName);
-        diagBox.setBuilder(new AlertDialog.Builder(this));
-        diagBox.getBuilder().setPositiveButton(R.string.button_confirm, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Run cmd
-                checkBluetooth();
-
-            }
-        });
-        diagBox.getBuilder().setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Back to activity screen
-            }
-        });
-        diagBox.show(this.getFragmentManager(), "test");
+    // ================================== Speech  Recognition Functions
+    public void onTapToTalk(View view) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt_title));
+        try {
+            startActivityForResult(intent, REQUEST_SPEECH_RECOG);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.unsuportted_speech),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void checkBluetooth() {
+    private void checkBluetooth(String msg) {
         btService = new BluetoothService(this);
         if(!btService.isBluetoothEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, REQUEST_BLUETOOTH_ON);
         } else {
             // Bluetooth já está ativado
-            beginConnection();
+            onSpeechFound(msg);
         }
+    }
+
+    private void onSpeechFound(String text) {
+        List<Command> cmds = new ArrayList<>();
+        CommandGrammar cmdGrammar = new CommandGrammar(cmds);
+        String cmd = cmdGrammar.getValidCmdFromText(text);
+        btService.connectAndSend(cmd);
     }
 
     private void beginConnection() {
@@ -196,6 +209,7 @@ public class CommandDescriptionActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String msg = "";
         switch (requestCode) {
             case REQUEST_BLUETOOTH_ON: {
                 if(resultCode == RESULT_OK) {
@@ -203,6 +217,16 @@ public class CommandDescriptionActivity extends AppCompatActivity {
                     beginConnection();
                 } else {
                     Toast.makeText(getApplicationContext(), "Não foi possível ativar o bluetooth", Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+            case REQUEST_SPEECH_RECOG: {
+                if(resultCode == RESULT_OK) {
+                    ArrayList<String> mySpeech = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if(mySpeech != null) {
+                        msg = mySpeech.get(0);
+                        checkBluetooth(msg);
+                    }
                 }
                 break;
             }
