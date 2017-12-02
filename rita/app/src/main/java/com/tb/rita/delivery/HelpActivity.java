@@ -30,8 +30,8 @@ import domain.CommandGrammar;
 
 public class HelpActivity extends AppCompatActivity {
 
-    ImageButton tapToTalk;
-    BluetoothService btService;
+    private ImageButton tapToTalk;
+    private BluetoothService btService;
     private final int REQUEST_SPEECH_RECOG = 1;
     private final int REQUEST_BLUETOOTH_ON = 2;
 
