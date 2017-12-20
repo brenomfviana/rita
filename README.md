@@ -7,25 +7,14 @@ by a LED (representing the house lights), a RGB LED (representing the TV) and a 
 
 ## Preview
 
-<style type="text/css">
-	div {
-		margin: 0 auto;
-		max-width: 600px;
-	}
-	
-	p img {
-		height: 250px;
-	}
-</style>
-
-<div>
+<div style="margin: 0 auto; max-width: 250px;">
 	<p align="center">
-		<img src="img/app_img01.png">
-		<img src="img/app_img02.png">
-		<img src="img/app_img03.png">
-		<img src="img/app_img04.png">
-		<img src="img/app_img05.png">
-		<img src="img/app_img06.png">
+		<img height="100px" src ="Conversation.jpeg"/>
+		<img height="100px" src ="Conversation.jpeg"/>
+		<img height="100px" src ="Conversation.jpeg"/>
+		<img height="100px" src ="Conversation.jpeg"/>
+		<img height="100px" src ="Conversation.jpeg"/>
+		<img height="100px" src ="Conversation.jpeg"/>
 	</p>	
 </div>
 
