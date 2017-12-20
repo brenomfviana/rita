@@ -9,12 +9,12 @@ by a LED (representing the house lights), a RGB LED (representing the TV) and a 
 
 <div style="margin: 0 auto; max-width: 250px;">
 	<p align="center">
-		<img height="100px" src ="img/app_img01.png"/>
-		<img height="100px" src ="img/app_img02.png"/>
-		<img height="100px" src ="img/app_img03.png"/>
-		<img height="100px" src ="img/app_img04.png"/>
-		<img height="100px" src ="img/app_img05.png"/>
-		<img height="100px" src ="img/app_img06.png"/>
+		<img height="200px" src ="img/app_img01.png"/>
+		<img height="200px" src ="img/app_img02.png"/>
+		<img height="200px" src ="img/app_img03.png"/>
+		<img height="200px" src ="img/app_img04.png"/>
+		<img height="200px" src ="img/app_img05.png"/>
+		<img height="200px" src ="img/app_img06.png"/>
 	</p>	
 </div>
 
